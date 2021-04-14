@@ -1,1 +1,2 @@
-# Capstone---PharmaApp
+# PharmaApp
+## INFO Capstone 2021
