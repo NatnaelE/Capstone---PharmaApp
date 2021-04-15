@@ -1,10 +1,7 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 // Overrides
 $theme-colors: (
   "trans": rgba(0, 0, 0, 0),
-  "sky-blue": #2c9db9,
+  "sky-blue": #00a9d3,
   "deep-blue": #084C61,
   "ultra-blue": #446DF6,
   "golden": #ffb700,
@@ -13,12 +10,33 @@ $theme-colors: (
   "dark-sienna": #4C212A,
   "dim-gray": #716969,
   "jet": #323031,
-  "beige": #f5f0e8 
+  "beige": #f5f0e8,
+  "green": #00CBA6,
+  "mellow-yellow": #FFC478,
 );
+
+// $headings-font-family: 'Inter';
+$input-btn-font-family: 'Montserrat', sans-serif;
+
+$navbar-brand-font-size: 1.3rem;
+$nav-link-padding-y: 0.2rem;
+$nav-link-padding-x: 1.5rem;
+$navbar-toggler-font-size: 1rem;
+$navbar-dark-color: rgba(#fff, .95);
+$navbar-dark-hover-color: rgba(#fff, .75);
+
+$input-btn-padding-y: .2rem;
+$input-btn-padding-x: .7rem;
+
+$btn-white-space: nowrap;
+$btn-font-weight: 400;
+$btn-border-radius: 2px;
 
 .blur {
   backdrop-filter: blur(10px);
 }
+
+@import './fonts.scss';
 
 // Import Bootstrap
 @import '~bootstrap/scss/bootstrap.scss';

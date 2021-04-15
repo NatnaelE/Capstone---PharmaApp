@@ -5,6 +5,81 @@ body, #root {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background-color: #446DF6;
 }
+
+.abstract-bg {
+  background-image: url(../assets/abstract-bg.jpg);
+}
+
+.bg-img-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#nav {
+  font-family: 'Montserrat';
+}
+
+#patientApp h1 {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+p {
+  font-weight: 300;
+  font-family: 'Inter';
+  /* font-size: 0.9rem; */
+}
+
+/* iPhone 6/7/8 */
+@media (min-width: 320px) {
+  #patientApp h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* iPhone 6/7/8 Plus */
+@media (min-width: 376px) {
+  #patientApp h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  #patientApp h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #patientApp h1 {
+    font-size: 2.25rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #patientApp h1 {
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {}
