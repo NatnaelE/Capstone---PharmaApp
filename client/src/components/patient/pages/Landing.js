@@ -3,8 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 const LandingPage = () => {
   return <Container fluid className="vh-100 pt-5 px-3">
-    <h5 className="mt-3">LANDING PAGE</h5>
-
     <Row className="my-5 mx-md-3 mx-lg-4 mx-xl-5">
       <Col md={7}>
         <h1 className="mb-0">Medication you need,</h1>

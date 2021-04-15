@@ -16,12 +16,12 @@ export const useAuth = () => {
 // Provider hook that creates auth object, handles state, and wraps methods
 function useProvideAuth() {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(localStorage.getItem("user") || null)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
   
-  // Sign in
+  // Sign out
   const signIn = () => {
     const user = {id: 0, name: 'Fake User'}
-    localStorage.setItem("user", user)
+    localStorage.setItem("user", JSON.stringify(user))
     setUser(user)
     setLoading(false)
   }
