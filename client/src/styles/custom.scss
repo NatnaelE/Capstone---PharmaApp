@@ -15,6 +15,9 @@ $theme-colors: (
   "mellow-yellow": #FFC478,
 );
 
+$grid-columns: 16;
+$grid-row-columns: 8;
+
 // $headings-font-family: 'Inter';
 $input-btn-font-family: 'Montserrat', sans-serif;
 
@@ -40,6 +43,7 @@ $btn-border-radius-sm: 2px;
 }
 
 @import './fonts.scss';
+@import './dashboard.scss';
 
 // Import Bootstrap
 @import '~bootstrap/scss/bootstrap.scss';

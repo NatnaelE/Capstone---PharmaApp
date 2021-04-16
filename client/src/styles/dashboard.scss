@@ -1,0 +1,10 @@
+@mixin side-bar {
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+#sideBar {
+  @include side-bar;
+}

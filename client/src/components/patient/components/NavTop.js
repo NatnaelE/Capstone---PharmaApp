@@ -50,7 +50,7 @@ const NavProfile = () => {
   ) : (
     <Row className="fw-200 justify-content-end mx-0">
       <Nav.Link href="/pharmacist" className="pl-0 pr-3">
-        <Button variant="deep-blue" size="sm">Pharmacists</Button>
+        <Button variant="deep-blue" size="sm">Host Your Pharmacy</Button>
       </Nav.Link>
       <Nav.Link href="/login" className="px-2">
         <Button variant="green" size="sm">Log in</Button>
