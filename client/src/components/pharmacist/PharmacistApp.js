@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { Container, Jumbotron, Row, Col, Button } from 'react-bootstrap'
+import { Container, Jumbotron, Row, Col, Button, Collapse } from 'react-bootstrap'
 
 const PharmacistApp = () => {
 
   return (
     <Container fluid className="bg-light vh-100">
       <Row className="h-100">
-        <Col xs={2} md={1} lg={4} xl={3} className="d-flex flex-column">
+        {/* <Col xs={2} md={1} lg={4} xl={3} className="d-flex flex-column"> */}
+        <Col xs={2} md={1} lg={"auto"} className="d-flex flex-column">
           <SideBar />
         </Col>
         <Col id="dashboardContent">
@@ -28,27 +29,40 @@ const PharmacistApp = () => {
 
 const SideBar = () => {
   let auth = useAuth()
+  const [expand, setExpand] = useState(false)
   return <Jumbotron id="sideBar"
             className="bg-sky-blue text-light h-100 my-3 p-4" >
-    <Row className="h-100 flex-column">
-      <Col xs={"auto"} className="flex-grow-0">
-        <h1 className="fw-200">PharmaApp</h1>
+    {/* <Row className="h-100 mx-0 navbar-dark flex-nowrap">
+      <Col xs={"auto"} className="px-0">
+        <Button variant="trans" onClick={() => setExpand(!expand)}>
+          <span className="navbar-toggler-icon"></span>
+        </Button>
       </Col>
-      <Col xs={5} className="my-3 d-flex flex-column justify-content-around">
-        <a href="/pharmacist/dashboard"><h2>Dashboard</h2></a>
-        <a href="/pharmacist/inventory"><h2>Inventory</h2></a>
-        <a href="/pharmacist/orders"><h2>Orders</h2></a>
-        <a href="/pharmacist/pharmacy"><h2>My Pharmacy</h2></a>
-      </Col>
-      <Col xs={"auto"} className="mt-auto d-flex flex-column">
-        <a href="/" className=""><h3>Back to Home</h3></a>
-        <hr />
-        <Button variant="dark-red" className="mt-2" onClick={e => {
-            e.preventDefault()
-            auth.signOut()
-          }}>Sign Out</Button>
-      </Col>
-    </Row>
+      <Collapse in={expand} >
+      <Col classname="px-0"> */}
+        <Row className="h-100 flex-column">
+          <Col xs={"auto"} className="flex-grow-0">
+            <h1 className="fw-200">PharmaApp</h1>
+          </Col>
+          <Col xs={5} className="my-3 d-flex flex-column justify-content-around">
+            <a href="/pharmacist/dashboard"><h2>Dashboard</h2></a>
+            <a href="/pharmacist/inventory"><h2>Inventory</h2></a>
+            <a href="/pharmacist/orders"><h2>Orders</h2></a>
+            <a href="/pharmacist/pharmacy"><h2>My Pharmacy</h2></a>
+          </Col>
+          <Col xs={"auto"} className="mt-auto d-flex flex-column">
+            <a href="/" className=""><h3>Back to Home</h3></a>
+            <hr />
+            <Button variant="dark-red" className="mt-2" onClick={e => {
+                e.preventDefault()
+                auth.signOut()
+              }}>Sign Out</Button>
+          </Col>
+        </Row>
+      {/* </Col>
+      </Collapse>
+    </Row> */}
+    
     
   </Jumbotron>
 }
@@ -87,7 +101,7 @@ const DashboardContent = () => {
       <WidgetCol hasNeighbor>
         <DashboardRow>
           <WidgetCol>
-            <WidgetContainer />
+            <WidgetContainer widget={<TestWidget title={'Quick Actions'} />} />
           </WidgetCol>
         </DashboardRow>
         <DashboardRow>
@@ -139,11 +153,19 @@ const WidgetCol = ({children, css, hasNeighbor, ...rest}) => {
     className={"d-flex flex-column " + (css ? css : '')}>{children}</Col>
 }
 
-const WidgetContainer = ({children, css, ...rest}) => {
+const WidgetContainer = ({children, css, widget, ...rest}) => {
   const style = { marginBottom: '15px' }
   // const style = {}
+  // let title = params ? params.title : 'Title'
+  widget = widget ? widget : <TestWidget title="Widget Title" />
   return <Jumbotron {...rest} style={style}
-    className={"h-100 p-3 " + (css ? css : '')}>{children}</Jumbotron>
+    className={"h-100 p-3 " + (css ? css : '')}>{widget}</Jumbotron>
+}
+
+const TestWidget = ({ title }) => {
+  return <Row className="h-100">
+    <Col><h3>{title}</h3></Col>
+  </Row>
 }
 
 export default PharmacistApp
