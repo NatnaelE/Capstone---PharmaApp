@@ -1,10 +1,53 @@
 @mixin side-bar {
+  // font-family: 'Montserrat', sans-serif;
 
   h1 {
-    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    // font-weight: inherit;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    // font-weight: inherit;
+    font-weight: 200;
+    white-space: nowrap;
+  }
+
+  a {
+    color: white;
+    padding-left: 0;
+    padding-right: 0;
+    // font-weight: 700;
+  }
+
+  a:hover {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    // font-weight: 400;
+  }
+
+  a:active {
+    // font-weight: 800;
+  }
+}
+
+@mixin content {
+  h2 {
+    font-size: 1.4rem;
   }
 }
 
 #sideBar {
   @include side-bar;
+}
+
+#dashboardContent {
+  @include content;
 }
