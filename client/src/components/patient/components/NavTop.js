@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuth } from '../../../hooks/useAuth'
-import { Navbar, Row, Col, Button, Nav } from 'react-bootstrap'
+import { Navbar, Row, Button, Nav } from 'react-bootstrap'
 
 const NavBar = ({scrollTop}) => {
   scrollTop = scrollTop ? scrollTop : false
