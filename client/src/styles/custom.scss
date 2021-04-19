@@ -18,7 +18,7 @@ $theme-colors: (
 $grid-columns: 16;
 $grid-row-columns: 8;
 
-$transition-collapse: opacity 0 ease;
+// $transition-collapse: opacity 0 ease;
 
 // $headings-font-family: 'Inter';
 $input-btn-font-family: 'Montserrat', sans-serif;
@@ -47,5 +47,13 @@ $btn-border-radius-sm: 2px;
 @import './fonts.scss';
 @import './dashboard.scss';
 
+
+// React Pro Sidebar Overrides
+$sidebar-bg-color: map-get($theme-colors, "sky-blue");
+
+// Import react pro sidebar
+@import '~react-pro-sidebar/dist/scss/styles.scss';
+
 // Import Bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
+

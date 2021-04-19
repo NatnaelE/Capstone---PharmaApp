@@ -10,7 +10,7 @@ const PharmacistApp = () => {
     <Container fluid className="bg-light vh-100">
       <Row className="h-100">
         {/* <Col xs={2} md={1} lg={4} xl={3} className="d-flex flex-column"> */}
-        <Col xs={2} md={1} lg={"auto"} className="d-flex flex-column">
+        <Col xs={"auto"} className="px-0">
           <SideBar />
         </Col>
         <Col id="dashboardContent">
