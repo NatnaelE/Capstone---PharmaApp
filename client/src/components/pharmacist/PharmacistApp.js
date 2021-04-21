@@ -6,6 +6,8 @@ import SideBar from './components/SideBar'
 import { MobileSidebarBtn } from './components/DashUtils'
 import { DashboardView, InventoryView, OrdersView, PharmacyView } from './views/AllViews'
 
+import { routes } from '../../constants/routes'
+
 const PharmacistApp = () => {
   const [toggled, setToggled] = useState(false)
 
@@ -28,12 +30,12 @@ const PharmacistApp = () => {
                 </Col>
               </Row>
           <Switch>
-            <Route path="/pharmacist/dashboard" component={DashboardView} />
-            <Route path="/pharmacist/inventory" component={InventoryView} />
-            <Route path="/pharmacist/orders" component={OrdersView} />
-            <Route path="/pharmacist/pharmacy" component={PharmacyView} />
-            <Route path="/pharmacist"
-              render={props => <Redirect to={{pathname: '/pharmacist/dashboard', state: {from: props.location}}} />} />
+            <Route path={routes.pharmacist.dashboard} component={DashboardView} />
+            <Route path={routes.pharmacist.inventory} component={InventoryView} />
+            <Route path={routes.pharmacist.orders} component={OrdersView} />
+            <Route path={routes.pharmacist.pharmacy} component={PharmacyView} />
+            <Route path={routes.pharmacist.base}
+              render={() => <Redirect to={routes.pharmacist.dashboard} />} />
           </Switch>
         </Col>
       </Row>

@@ -12,7 +12,11 @@ const routes = {
   },
   pharmacist: {
     base: pharmacistBase,
-    dashboard: pharmacistBase + '/dashboard'
+    dashboard: pharmacistBase + '/dashboard',
+    inventory: pharmacistBase + '/inventory',
+    orders: pharmacistBase + '/orders',
+    pharmacy: pharmacistBase + '/pharmacy',
+    settings: pharmacistBase + '/settings',
   }
 }
 
