@@ -1,0 +1,15 @@
+@mixin nav-brand {
+  .navbar-brand {
+    font-family: 'Montserrat';
+    caret-color: transparent;
+  }
+
+  .nav-link {
+    // font-family: 'Montserrat';
+    font-weight: 300;
+  }
+}
+
+#client-navbar {
+  @include nav-brand
+}

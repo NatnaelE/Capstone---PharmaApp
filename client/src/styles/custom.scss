@@ -1,55 +1,14 @@
-// Overrides
-$theme-colors: (
-  "trans": rgba(0, 0, 0, 0),
-  "sky-blue": #00a9d3,
-  "deep-blue": #18353d,
-  "ultra-blue": #446DF6,
-  "golden": #ffb700,
-  "red": #f83c3c,
-  "dark-red": #9a031e,
-  "dark-sienna": #4C212A,
-  "dim-gray": #716969,
-  "jet": #323031,
-  "beige": #f5f0e8,
-  "green": #00CBA6,
-  "mellow-yellow": #FFC478,
-);
+// Import overrides
+@import './overrides/bootstrap';
+@import './overrides/react-pro-sidebar';
 
-$grid-columns: 16;
-$grid-row-columns: 8;
-
-// $transition-collapse: opacity 0 ease;
-
-// $headings-font-family: 'Inter';
-$input-btn-font-family: 'Montserrat', sans-serif;
-
-$navbar-brand-font-size: 1.25rem;
-$nav-link-padding-y: 0rem;
-$navbar-nav-link-padding-x: .75rem;
-$navbar-toggler-font-size: 1rem;
-$navbar-dark-color: rgba(#fff, .95);
-$navbar-dark-hover-color: rgba(#fff, .75);
-
-$input-btn-padding-y: .2rem;
-$input-btn-padding-x: .7rem;
-$input-btn-padding-y-sm: .125rem;
-$input-btn-padding-x-sm: .75rem;
-
-$btn-white-space: nowrap;
-$btn-font-weight: 400;
-$btn-border-radius: 2px;
-$btn-border-radius-sm: 2px;
-
-.blur {
-  backdrop-filter: blur(10px);
-}
-
-@import './fonts.scss';
-@import './dashboard.scss';
-
-
-// React Pro Sidebar Overrides
-$sidebar-bg-color: map-get($theme-colors, "sky-blue");
+// Import partials
+@import './partials/fonts';
+@import './partials/utility-classes';
+@import './partials/nav';
+@import './partials/auth';
+@import './partials/dashboard';
+@import './partials/loading';
 
 // Import react pro sidebar
 @import '~react-pro-sidebar/dist/scss/styles.scss';

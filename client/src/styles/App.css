@@ -7,23 +7,13 @@ body, #root {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.abstract-bg {
-  background-image: url(../assets/abstract-bg.jpg);
+/* Hide focus for mouse / touch users */
+*:focus:not(:focus-visible) {
+  outline: 0 !important;
+  box-shadow: none !important;
 }
 
-.bg-img-cover {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-#nav {
-  font-family: 'Montserrat';
-}
-
+/* Patient side styles */
 #patientApp h1 {
   font-weight: 600;
   font-size: 1.25rem;
@@ -31,8 +21,6 @@ body, #root {
 
 p {
   font-weight: 300;
-  font-family: 'Inter';
-  /* font-size: 0.9rem; */
 }
 
 /* iPhone 6/7/8 */

@@ -1,0 +1,18 @@
+// Background classes
+
+.bg-img-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-blur, .blur {
+  backdrop-filter: blur(10px);
+}
+
+.abstract-bg {
+  background-image: url(../../assets/abstract-bg-01.jpg);
+}

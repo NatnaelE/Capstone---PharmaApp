@@ -1,0 +1,20 @@
+@mixin custom-tab-colors {
+  a {
+    color: #6c757d;
+    background-color: #dddddd;
+  }
+
+  .active {
+    color: #fff;
+    background-color: map-get($theme-colors, "sky-blue");
+  }
+  
+  .nav-link {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+#signTabs {
+  @include custom-tab-colors;
+}

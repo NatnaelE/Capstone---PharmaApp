@@ -1,0 +1,41 @@
+// Bootstrap variable overrides
+
+$theme-colors: (
+  "trans": rgba(0, 0, 0, 0),
+  "sky-blue": #00a9d3,
+  "deep-blue": #18353d,
+  "ultra-blue": #446DF6,
+  "golden": #ffb700,
+  "red": #f83c3c,
+  "dark-red": #9a031e,
+  "dark-sienna": #4C212A,
+  "dim-gray": #716969,
+  "jet": #323031,
+  "beige": #f5f0e8,
+  "green": #00CBA6,
+  "mellow-yellow": #FFC478,
+);
+
+$grid-columns: 16;
+$grid-row-columns: 8;
+
+$input-btn-font-size-lg: 0.9rem;
+$input-padding-x-lg: 1.25rem;
+$input-padding-y-lg: .75rem;
+
+$navbar-brand-font-size: 1.25rem;
+$nav-link-padding-y: 0rem;
+$navbar-nav-link-padding-x: .75rem;
+$navbar-toggler-font-size: 1rem;
+$navbar-dark-color: rgba(#fff, .95);
+$navbar-dark-hover-color: rgba(#fff, .75);
+
+$input-btn-padding-y: .2rem;
+$input-btn-padding-x: .7rem;
+$input-btn-padding-y-sm: .125rem;
+$input-btn-padding-x-sm: .75rem;
+
+$btn-white-space: nowrap;
+$btn-font-weight: 400;
+$btn-border-radius: 2px;
+$btn-border-radius-sm: 2px;
