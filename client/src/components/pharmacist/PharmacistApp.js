@@ -32,7 +32,7 @@ const PharmacistApp = () => {
             <Route path="/pharmacist/inventory" component={InventoryView} />
             <Route path="/pharmacist/orders" component={OrdersView} />
             <Route path="/pharmacist/pharmacy" component={PharmacyView} />
-            <Route exact path="/pharmacist"
+            <Route path="/pharmacist"
               render={props => <Redirect to={{pathname: '/pharmacist/dashboard', state: {from: props.location}}} />} />
           </Switch>
         </Col>

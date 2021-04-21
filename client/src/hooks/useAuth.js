@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react'
+import React, { useState, useCallback, useEffect, useContext, createContext } from 'react'
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from "firebase/app";
@@ -52,9 +52,10 @@ function useProvideAuth() {
   const [userData, setUserData] = useState()
 
   // Handles auth user state change
-  const handleUserChange = (user) => {
+  const handleUserChange = useCallback((user) => {
     // Store user in hook state
     setUser(user)
+    user ? console.log(user) : console.log("No user signed in")
 
     // Handle RTD subscriptions
     if (user) {
@@ -80,7 +81,7 @@ function useProvideAuth() {
       // Clear user data
       setUserData(null)
     }
-  }
+  }, [db, userRef, setUser, setUserRef, setUserData])
 
   // Sign In
   const signIn = (email, password) => {
@@ -177,11 +178,13 @@ function useProvideAuth() {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       setLoading(true)
       handleUserChange(user)
-      user ? console.log(user) : console.log("No user signed in")
       setLoading(false)
     });
+
     // Cleanup subscription on unmount
     return () => unsubscribe();
+
+    // eslint-disable-next-line
   }, []);
 
   // Return the user object and auth methods
@@ -189,7 +192,6 @@ function useProvideAuth() {
     user,
     userData,
     loading,
-    // rtd,
     signIn,
     signUp,
     signOut,

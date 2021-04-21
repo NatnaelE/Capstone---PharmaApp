@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import NavTop from './components/NavTop'
 import Authenticator from '../auth/Authenticator'
@@ -18,6 +18,7 @@ const PatientApp = () => {
       <Route path="/search" component={SearchPage} />
       <Route path="/about" component={AboutPage} />
       <Route exact path="/" component={LandingPage} />
+      <Route render={props => <Redirect to={{pathname: '/'}} />} />
     </Switch>
   </div>
 }
