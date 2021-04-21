@@ -119,6 +119,17 @@
   h3 {
     font-size: 1.1rem;
   }
+
+  // .has-neighbor {
+  //   padding-right: 15px;
+  // }
+
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 768px) {
+    .has-neighbor {
+      padding-right: 0px;
+    }
+  }
 }
 
 #sideBar {

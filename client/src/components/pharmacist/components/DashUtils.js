@@ -1,16 +1,16 @@
 import React from 'react'
 // import { useAuth } from '../../hooks/useAuth'
 import { Jumbotron, Row, Col, Button } from 'react-bootstrap'
-import { Menu } from '@material-ui/icons'
+import { Menu, AccountCircle } from '@material-ui/icons'
 
 const DashboardHeader = ({ title, subtitle, openSidebar }) => {
   // let auth = useAuth()
   return <>
     <Row className="align-items-baseline mt-3">
-      <Col xs={12} xl={"auto"}>
+      <Col xs={16} xl={"auto"}>
         <h1 className="fw-800 mb-1 mb-xl-2">{title ? title : 'Provide title'}</h1>
       </Col>
-      <Col xs={12} xl={"auto"}>
+      <Col xs={16} xl={"auto"} className="pl-xl-1">
         <h2 className="fw-200">{subtitle ? subtitle : 'Provide subtitle'}</h2>
       </Col>
     </Row>
@@ -23,22 +23,27 @@ const DashboardRow = ({children, css, ...rest}) => {
 }
 
 const DashboardCol = ({children, css, hasNeighbor, ...rest}) => {
-  const style =
-    { paddingRight: hasNeighbor ? '0' : '15px' }
+  const style = {}
+  // const classNames = "d-flex flex-column" + 
   return <Col {...rest} style={style}
-    className={"d-flex flex-column " + (css ? css : '')}>{children}</Col>
+    className={"d-flex flex-column " + (hasNeighbor ? 'has-neighbor ' : '') + (css ? css : '')}>{children}</Col>
 }
 
-const WidgetContainer = ({children, css, widget, ...rest}) => {
+const WidgetContainer = ({children, css, widget, title, ...rest}) => {
   const style = { marginBottom: '15px' }
-  widget = widget ? widget : <TestWidget title="Widget Title" />
-  return <Jumbotron {...rest} style={style}
-    className={"h-100 p-3 " + (css ? css : '')}>{widget}</Jumbotron>
+  widget = widget ? widget : <TestWidget />
+  return (
+    <Jumbotron {...rest} style={style}
+      className={"h-100 p-3 d-flex flex-column " + (css ? css : '')}>
+        <h3>{title ? title : "Title"}</h3>
+        {widget}
+    </Jumbotron>
+  )
 }
 
-const TestWidget = ({ title }) => {
+const TestWidget = () => {
   return <Row className="h-100">
-    <Col><h3>{title}</h3></Col>
+    <Col>Content</Col>
   </Row>
 }
 
@@ -49,4 +54,25 @@ const MobileSidebarBtn = ({ openSidebar }) => {
   )
 }
 
-export { DashboardHeader, MobileSidebarBtn, DashboardRow, DashboardCol, WidgetContainer, TestWidget }
+const ProfilePicture = ({ src, width, height, border }) => {
+  const style = {
+    width: width ? width : '35px',
+    height: src ? '' : width ? width : '35px',
+    borderRadius: '50%',
+    boxShadow: border ? '0 0 20px 5px gray' : ''
+  }
+
+  return src ? (
+    <img src={src} style={style} alt="profile" />
+  ) : <AccountCircle style={style}/>
+}
+
+export {
+  DashboardHeader,
+  MobileSidebarBtn,
+  DashboardRow,
+  DashboardCol,
+  WidgetContainer,
+  TestWidget,
+  ProfilePicture
+}

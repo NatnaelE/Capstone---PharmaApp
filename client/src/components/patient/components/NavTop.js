@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAuth } from '../../../hooks/useAuth'
 import { Navbar, Row, Button, Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { routes } from '../../../constants/routes'
 
 const NavBar = ({scrollTop}) => {
@@ -13,15 +14,15 @@ const NavBar = ({scrollTop}) => {
       expand="md"
       fixed="top"
       className={`${scrollTop ? "test" : "blur"} px-lg-4 px-xl-5`}>
-      <Navbar.Brand href={routes.landing}
+      <Navbar.Brand as={Link} to={routes.landing}
         className="align-self-baseline fw-200 mr-0 mr-md-3 mr-lg-4 mr-xl-5">
         PharmaApp
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse className="">
         <Nav className="mr-auto">
-          <Nav.Link href={routes.search} className="pr-4">Search</Nav.Link>
-          <Nav.Link href="/about">About Us</Nav.Link>
+          <Nav.Link as={Link} to={routes.search} className="pr-4">Search</Nav.Link>
+          <Nav.Link as={Link} to={'/about'}>About Us</Nav.Link>
         </Nav>
         <hr className="my-2 d-md-none" />
         <NavProfile />
@@ -52,13 +53,13 @@ const NavProfile = () => {
     </Nav>
   ) : (
     <Row className="fw-200 justify-content-end mx-0">
-      <Nav.Link href={routes.pharmacistLanding} className="pl-0 pr-3">
+      <Nav.Link as={Link} to={routes.pharmacistLanding} className="pl-0 pr-3">
         <Button variant="deep-blue" size="sm">Host Your Pharmacy</Button>
       </Nav.Link>
-      <Nav.Link href={routes.auth.signin} className="px-2">
+      <Nav.Link as={Link} to={routes.auth.signin} className="px-2">
         <Button variant="green" size="sm">Log in</Button>
       </Nav.Link>
-      <Nav.Link href={routes.auth.signup + '?view=pharmacist'} className="px-0">
+      <Nav.Link as={Link} to={routes.auth.signup + '?view=pharmacist'} className="px-0">
         <Button variant="sky-blue" size="sm">Sign up</Button>
       </Nav.Link>
     </Row>

@@ -11,29 +11,29 @@ const DashboardContent = ({ openSidebar }) => {
     <DashboardHeader
       title="Dashboard" subtitle="Your pharmacy at a glance" />
     <DashRow>
-      <DashCol hasNeighbor>
+      <DashCol hasNeighbor xs={16} md={10}>
         <DashRow>
           <DashCol>
-            <WidgetContainer widget={<TestWidget title={'Quick Actions'} />} />
+            <WidgetContainer widget={<TestWidget />} title={'Quick Actions'} />
           </DashCol>
         </DashRow>
         <DashRow>
           <DashCol>
-            <WidgetContainer />
+            <WidgetContainer title={'At a Glance'} />
           </DashCol>
         </DashRow>
       </DashCol>
-      <DashCol xs={4} md={5} lg={6}>
-        <WidgetContainer />
+      <DashCol xs={16} md={6} >
+        <WidgetContainer title={'Recent Orders'} />
       </DashCol>
     </DashRow>
 
     <DashRow>
-      <DashCol hasNeighbor>
-        <WidgetContainer />
+      <DashCol hasNeighbor xs={16} sm={8}>
+        <WidgetContainer title={'Order Trends'} />
       </DashCol>
       <DashCol>
-        <WidgetContainer />
+        <WidgetContainer title={'Order Next'} css="bg-red text-light" />
       </DashCol>
     </DashRow>
   </Container>

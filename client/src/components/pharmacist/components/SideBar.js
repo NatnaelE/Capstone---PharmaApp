@@ -12,11 +12,14 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar'
+import { ProfilePicture } from './DashUtils'
 
 // Icons
 import { Speed, BarChart, Assignment, LocalPharmacy,
   Menu as MenuIcon, MenuOpen, AccountCircle, ExitToApp, Close } from '@material-ui/icons';
 // import { Apps } from '@material-ui/icons'
+
+import { routes } from '../../../constants/routes'
 
 const SideBar = ({ toggled, handleToggle }) => {
   let auth = useAuth()
@@ -82,12 +85,12 @@ const SideBar = ({ toggled, handleToggle }) => {
           title={auth.user.displayName}
           icon={auth.user.photoURL ? <ProfilePicture src={auth.user.photoURL} /> : <AccountCircle />}
         >
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>Settings</MenuItem>
-          <MenuItem onClick={e => {
-            e.preventDefault()
-            auth.updateProfile({ name: "Jimmy Heaters", img: "https://images-na.ssl-images-amazon.com/images/I/61ZQxQke2rL._SL1203_.jpg"})
-          }}>Update Profile</MenuItem>
+          <MenuItem
+            active={useRouteMatch({path: routes.pharmacist.settings})}
+          >
+            Settings
+            <Link to={routes.pharmacist.settings}></Link>  
+          </MenuItem>
           <MenuItem onClick={e => {
             e.preventDefault()
             auth.signOut()
@@ -109,11 +112,11 @@ const SideBar = ({ toggled, handleToggle }) => {
   </ProSidebar>
 }
 
-const ProfilePicture = ({ src, width }) => {
-  return <img src={src} style={{
-    width: width ? width : '35px',
-    borderRadius: '50%'
-  }} alt="profile" />
-}
+// const ProfilePicture = ({ src, width }) => {
+//   return <img src={src} style={{
+//     width: width ? width : '35px',
+//     borderRadius: '50%'
+//   }} alt="profile" />
+// }
 
 export default SideBar

@@ -135,20 +135,25 @@ function useProvideAuth() {
   }
 
   const updateProfile = ({ name, img }) => {
+    if (!user) {
+      console.log("Signed up, but no user found")
+      return
+    }
+    
     const update = {}
     name && (update['displayName'] = name)
     img && (update['photoURL'] = img)
     console.log(update)
 
-    if (!user) {
-      console.log("Signed up, but no user found")
-    }
-
     const test = user.updateProfile(update)
       .then(console.log("Updated profile"))
       .catch(console.error)
-
     console.log(test)
+
+    const rtbUpdates = {}
+    name && (rtbUpdates[refs.users + user.uid + '/name'] = name)
+    img && (rtbUpdates[refs.users + user.uid + '/profile_img'] = img)
+    db.ref().update(rtbUpdates)
     // rtd.postUserData(user.uid, name, user.email, img)
   }
 

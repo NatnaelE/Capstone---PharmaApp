@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import {  DashboardHeader } from '../components/DashUtils'
 import DashboardContent from './Dashboard'
+import SettingsContent from './Settings'
 
 // Main dashboard for pharmacists
 const DashboardView = ({ openSidebar }) => {
@@ -29,4 +30,8 @@ const PharmacyView = () => {
   </Container>
 }
 
-export { DashboardView, InventoryView, OrdersView, PharmacyView }
+const SettingsView = () => {
+  return <SettingsContent />
+}
+
+export { DashboardView, InventoryView, OrdersView, PharmacyView, SettingsView }

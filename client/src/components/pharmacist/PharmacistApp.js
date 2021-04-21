@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 import SideBar from './components/SideBar'
 import { MobileSidebarBtn } from './components/DashUtils'
-import { DashboardView, InventoryView, OrdersView, PharmacyView } from './views/AllViews'
+import { DashboardView, InventoryView, OrdersView, PharmacyView, SettingsView } from './views/AllViews'
 
 import { routes } from '../../constants/routes'
 
@@ -17,7 +17,7 @@ const PharmacistApp = () => {
   }
 
   return (
-    <Container fluid className={`bg-light vh-100 ${toggled ? 'toggled' : ''}`}>
+    <Container fluid className={`bg-light vh-100 ${toggled ? 'toggled' : ''}  abstract-bg bg-img-cover`}>
       
       <Row className="h-100 flex-nowrap">
         <Col xs={"auto"} className="px-0">
@@ -34,6 +34,7 @@ const PharmacistApp = () => {
             <Route path={routes.pharmacist.inventory} component={InventoryView} />
             <Route path={routes.pharmacist.orders} component={OrdersView} />
             <Route path={routes.pharmacist.pharmacy} component={PharmacyView} />
+            <Route path={routes.pharmacist.settings} component={SettingsView} />
             <Route path={routes.pharmacist.base}
               render={() => <Redirect to={routes.pharmacist.dashboard} />} />
           </Switch>
