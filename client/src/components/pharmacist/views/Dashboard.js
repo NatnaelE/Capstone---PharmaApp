@@ -6,10 +6,10 @@ import {  DashboardHeader,
   WidgetContainer,
   TestWidget  } from '../components/DashUtils'
 
-const DashboardContent = () => {
+const DashboardContent = ({ openSidebar }) => {
   return <Container fluid className="h-100 d-flex flex-column px-0">
     <DashboardHeader
-      title="Dashboard" subtitle="Your pharmacy at a glance"/>
+      title="Dashboard" subtitle="Your pharmacy at a glance" />
     <DashRow>
       <DashCol hasNeighbor>
         <DashRow>

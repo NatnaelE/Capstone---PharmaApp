@@ -4,8 +4,8 @@ import {  DashboardHeader } from '../components/DashUtils'
 import DashboardContent from './Dashboard'
 
 // Main dashboard for pharmacists
-const DashboardView = () => {
-  return <DashboardContent />
+const DashboardView = ({ openSidebar }) => {
+  return <DashboardContent openSidebar={openSidebar} />
 }
 
 const InventoryView = () => {

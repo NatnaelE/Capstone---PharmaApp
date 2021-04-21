@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../../hooks/useAuth'
-import { Container, Jumbotron, Row, Col, Button } from 'react-bootstrap'
+import { Link, useRouteMatch } from 'react-router-dom'
+import { Row, Col, Button } from 'react-bootstrap'
 
 import {
   ProSidebar,
@@ -12,59 +13,107 @@ import {
   SidebarContent,
 } from 'react-pro-sidebar'
 
-const SideBar = () => {
+// Icons
+import { Speed, BarChart, Assignment, LocalPharmacy,
+  Menu as MenuIcon, MenuOpen, AccountCircle, ExitToApp, Close } from '@material-ui/icons';
+// import { Apps } from '@material-ui/icons'
+
+const SideBar = ({ toggled, handleToggle }) => {
   let auth = useAuth()
-  const [collapsed, setCollapsed] = useState(false)
-  const [toggled, setToggled] = useState(false)
+  // let rtd = useRTD()
+  // console.log(rtd.userData)
+  const [collapsed, setCollapsed] = useState(auth.userData ? auth.userData.settings.startSidebarMinimized : false)
+  // console.log(auth.rtd.getUserData())
 
   return <ProSidebar id="sideBar"
     collapsed={collapsed}
     breakPoint="md"
+    toggled={toggled}
+    onToggle={handleToggle}
   >
     <SidebarHeader>
-      <Row className="mx-0 flex-nowrap">
-        <Button variant="trans" onClick={e => {
-          e.preventDefault()
-          console.log(collapsed)
-          setCollapsed(!collapsed)
-          console.log(collapsed)
-        }}>{'<'}</Button>
-        <h1 className={`${collapsed ? "d-none" : ""}`}>PharmaApp</h1>
+      <Button variant="trans"
+        className={`px-0 hideable-toggle ${toggled ? "d-none" : "d-absolute"} ${collapsed ? "closed" : "open"}`}
+        onClick={e => {
+              e.preventDefault()
+              setCollapsed(!collapsed)
+            }}>{ collapsed ? <MenuIcon /> : <MenuOpen /> }</Button>
+      <Button variant="trans"
+        className={`px-0 hideable-toggle ${toggled ? "d-absolute" : "d-none"} ${collapsed ? "closed" : "open"}`}
+        onClick={e => {
+              e.preventDefault()
+              handleToggle()
+            }}><Close /></Button>
+      <Row className="mx-0 p-3 w-100 flex-nowrap justify-content-start">
+        <Col xs={"auto"} className="px-0">
+          <h1 className={`mb-0 hideable ${collapsed ? "hidden" : "show"}`}>PharmaApp</h1>
+        </Col>
+        
       </Row>
     </SidebarHeader>
     
     <SidebarContent>
-      <Menu iconShape="circle">
-        <MenuItem>Dashboard</MenuItem>
+      <Menu>
+        <h2 className={`menu-title hideable ${collapsed ? "hidden" : "show"}`}>Menu</h2>
+        <MenuItem icon={<Speed />} active={useRouteMatch({path: '/pharmacist/dashboard'})}>
+          Dashboard
+          <Link to="/pharmacist/dashboard"></Link>
+        </MenuItem>
+        <MenuItem icon={<BarChart />} active={useRouteMatch({path: '/pharmacist/inventory'})}>
+          Inventory
+          <Link to="/pharmacist/inventory"></Link>
+        </MenuItem>
+        <MenuItem icon={<Assignment />} active={useRouteMatch({path: '/pharmacist/orders'})}>
+          Orders
+          <Link to="/pharmacist/orders"></Link>
+        </MenuItem>
+        <MenuItem icon={<LocalPharmacy />} active={useRouteMatch({path: '/pharmacist/pharmacy'})}>
+          My Pharmacy
+          <Link to="/pharmacist/pharmacy"></Link>
+        </MenuItem>
       </Menu>
+      
     </SidebarContent>
-  </ProSidebar>
+    <SidebarFooter>
+    <Menu>
+        <h2 className={`menu-title hideable ${collapsed ? "hidden" : "show"}`}>Account</h2>
+                
+        <SubMenu
+          title={auth.user.displayName}
+          icon={auth.user.photoURL ? <ProfilePicture src={auth.user.photoURL} /> : <AccountCircle />}
+        >
+          <MenuItem>Profile</MenuItem>
+          <MenuItem>Settings</MenuItem>
+          <MenuItem onClick={e => {
+            e.preventDefault()
+            auth.updateProfile({ name: "Jimmy Heaters", img: "https://images-na.ssl-images-amazon.com/images/I/61ZQxQke2rL._SL1203_.jpg"})
+          }}>Update Profile</MenuItem>
+          <MenuItem onClick={e => {
+            e.preventDefault()
+            auth.signOut()
+          }}>Sign Out</MenuItem>
+        </SubMenu>
+      </Menu>
 
-  // const [expand, setExpand] = useState(false)
-  // return <Jumbotron id="sideBar"
-  //           className="bg-sky-blue text-light h-100 my-3 p-4" >
-  //       <Row className="h-100 flex-column">
-  //         <Col xs={"auto"} className="flex-grow-0">
-  //           <h1 className="fw-200">PharmaApp</h1>
-  //         </Col>
-  //         <Col xs={5} className="my-3 d-flex flex-column justify-content-around">
-  //           <a href="/pharmacist/dashboard"><h2>Dashboard</h2></a>
-  //           <a href="/pharmacist/inventory"><h2>Inventory</h2></a>
-  //           <a href="/pharmacist/orders"><h2>Orders</h2></a>
-  //           <a href="/pharmacist/pharmacy"><h2>My Pharmacy</h2></a>
-  //         </Col>
-  //         <Col xs={"auto"} className="mt-auto d-flex flex-column">
-  //           <a href="/" className=""><h3>Back to Home</h3></a>
-  //           <hr />
-  //           <Button variant="dark-red" className="mt-2" onClick={e => {
-  //               e.preventDefault()
-  //               auth.signOut()
-  //             }}>Sign Out</Button>
-  //         </Col>
-  //       </Row>
+    </SidebarFooter>
+    <SidebarFooter >
+      <Menu>
+        <MenuItem icon={<ExitToApp />}>
+          Exit Dashboard
+          <Link to="/"></Link>
+        </MenuItem>
+      </Menu>
+      
     
-    
-  // </Jumbotron>
+    </SidebarFooter>
+  </ProSidebar>
+}
+
+const ProfilePicture = ({ src, width }) => {
+  return <img src={src} style={{
+    width: width ? width : '35px',
+    borderRadius: '50%'
+  }} alt="profile" />
 }
 
 export default SideBar

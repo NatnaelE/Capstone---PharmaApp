@@ -1,8 +1,9 @@
 import React from 'react'
 // import { useAuth } from '../../hooks/useAuth'
-import { Jumbotron, Row, Col } from 'react-bootstrap'
+import { Jumbotron, Row, Col, Button } from 'react-bootstrap'
+import { Menu } from '@material-ui/icons'
 
-const DashboardHeader = ({ title, subtitle }) => {
+const DashboardHeader = ({ title, subtitle, openSidebar }) => {
   // let auth = useAuth()
   return <>
     <Row className="align-items-baseline mt-3">
@@ -41,4 +42,11 @@ const TestWidget = ({ title }) => {
   </Row>
 }
 
-export { DashboardHeader, DashboardRow, DashboardCol, WidgetContainer, TestWidget }
+const MobileSidebarBtn = ({ openSidebar }) => {
+  return (
+    <Button variant="trans" className="d-md-none"
+      onClick={e => openSidebar(e)}><Menu style={{ color: '#00a9d3' }}/></Button>
+  )
+}
+
+export { DashboardHeader, MobileSidebarBtn, DashboardRow, DashboardCol, WidgetContainer, TestWidget }
