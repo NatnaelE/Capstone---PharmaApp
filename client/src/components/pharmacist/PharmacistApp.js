@@ -17,7 +17,7 @@ const PharmacistApp = () => {
   }
 
   return (
-    <Container fluid className={`bg-light vh-100 ${toggled ? 'toggled' : ''}  abstract-bg bg-img-cover`}>
+    <Container fluid className={`bg-light vh-100 ${toggled ? 'toggled' : ''}  abstract-bg-2 bg-img-cover`}>
       
       <Row className="h-100 flex-nowrap">
         <Col xs={"auto"} className="px-0">

@@ -18,7 +18,7 @@ const PatientApp = () => {
       <Route path="/search" component={SearchPage} />
       <Route path="/about" component={AboutPage} />
       <Route exact path="/" component={LandingPage} />
-      <Route render={props => <Redirect to={{pathname: '/'}} />} />
+      <Route render={() => <Redirect to={{pathname: '/'}} />} />
     </Switch>
   </div>
 }
