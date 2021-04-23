@@ -44,7 +44,9 @@ export const useAuth = () => {
 function useProvideAuth() {
   // Auth state
   const [loading, setLoading] = useState(true)
+  const [onboarding, setOnboarding] = useState()
   const [user, setUser] = useState()
+  
   
   // RTB for user data
   let db = firebase.database()
@@ -57,9 +59,21 @@ function useProvideAuth() {
     setUser(user)
     user ? console.log(user) : console.log("No user signed in")
 
-    // Handle RTD subscriptions
+    
     if (user) {
+      // Handle RTD subscriptions
       let ref = db.ref(refs.users + user.uid)
+
+      // // Load data one time for state
+      // ref.get().then((snapshot) => {
+      //   if (snapshot.exists()) {
+      //     console.log(snapshot.val());
+      //   } else {
+      //     console.log("No data available");
+      //   }
+      // }).catch((error) => {
+      //   console.error(error);
+      // });
 
       // Subscribe to user data
       ref.on('value', snapshot => {
@@ -93,6 +107,8 @@ function useProvideAuth() {
 
   // Sign Up
   const signUp = (email, password, name) => {
+    setOnboarding(true)
+
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -124,7 +140,8 @@ function useProvideAuth() {
       profile_img: imageURL,
       settings: {
         startSidebarMinimized: false
-      }
+      },
+      onboarding: true
     }, err => {
       if (err) {
         console.error("Failed to write user data")
@@ -181,9 +198,13 @@ function useProvideAuth() {
   // ... latest auth object.
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      console.log('auth state fire')
       setLoading(true)
       handleUserChange(user)
       setLoading(false)
+      console.log(userData)
+      console.log(loading)
+      console.log('loading false')
     });
 
     // Cleanup subscription on unmount
@@ -197,6 +218,7 @@ function useProvideAuth() {
     user,
     userData,
     loading,
+    onboarding,
     signIn,
     signUp,
     signOut,

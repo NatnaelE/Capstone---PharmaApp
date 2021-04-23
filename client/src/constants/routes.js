@@ -1,5 +1,6 @@
 const authBase = '/auth'
 const pharmacistBase = '/pharmacist'
+const onboardingBase = '/onboard'
 
 const routes = {
   landing: '/',
@@ -9,6 +10,11 @@ const routes = {
     base: authBase,
     signup: authBase + '/signup',
     signin: authBase + '/signin',
+  },
+  onboarding: {
+    base: onboardingBase,
+    stage1: onboardingBase + '/s1',
+    stage2: onboardingBase + '/s2',
   },
   pharmacist: {
     base: pharmacistBase,

@@ -18,8 +18,10 @@ const Authenticator = ({ from }) => {
       <Route path={routes.auth.signup} component={SignUpView} />
       <Route path={routes.auth.signin} component={SignInView} />
       <Route path={routes.auth.base}
-        render={props => <Redirect to={{pathname: auth.signin}} />} />
+        render={() => <Redirect to={{pathname: auth.signin}} />} />
     </Switch>
+  // ) : auth.onboarding? (
+  //     <Redirect to={{pathname: routes.onboarding.base, state: {from: from}}} />
   ) : <Redirect to={{pathname: routes.pharmacist.dashboard, state: {from: from}}} />
 }
 

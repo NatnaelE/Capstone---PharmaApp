@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './hooks/useAuth'
 
 import PharmacistApp from './components/pharmacist/PharmacistApp'
 import PatientApp from './components/patient/PatientApp'
+import Onboarding from './components/onboarding/Onboarding'
 
 import { routes } from './constants/routes'
 
@@ -16,6 +17,7 @@ export default function App() {
       <Router>
         <Switch>
           <PrivateRoute path={routes.pharmacist.base} component={PharmacistApp} componentProps={{}} />
+          <PrivateRoute path={routes.onboarding.base} component={Onboarding} componentProps={{}} />
           <Route path={routes.landing} component={PatientApp} />
         </Switch>
       </Router>

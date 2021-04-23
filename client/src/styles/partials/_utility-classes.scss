@@ -20,3 +20,13 @@
 .abstract-bg-2 {
   background-image: url(../../assets/abstract-bg-02.jpg);
 }
+
+.pharmacy-bg {
+  background-image: url(../../assets/pharmacy-bg.jpg);
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

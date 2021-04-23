@@ -21,7 +21,7 @@ const NavBar = ({scrollTop}) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse className="">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to={routes.search} className="pr-4">Search</Nav.Link>
+          <Nav.Link as={Link} to={routes.search} className="pr-4">Search Now</Nav.Link>
           <Nav.Link as={Link} to={'/about'}>About Us</Nav.Link>
         </Nav>
         <hr className="my-2 d-md-none" />
