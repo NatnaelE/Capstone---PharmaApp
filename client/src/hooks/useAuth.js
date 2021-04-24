@@ -115,7 +115,7 @@ function useProvideAuth() {
       .then((response) => response.user)
       .then(user => {
         user.updateProfile({ displayName: name })
-        postUserData(user.uid, email, name, '')
+        startOnboarding(user.uid, email, name, '')
       })
       .catch(console.error)
   };
@@ -129,7 +129,7 @@ function useProvideAuth() {
       });
   };
 
-  const postUserData = (uid, email, name, imageURL) => {
+  const startOnboarding = (uid, email, name) => {
     if (!uid) {
       console.error("UID not provided")
     }
@@ -137,7 +137,7 @@ function useProvideAuth() {
     db.ref(refs.users + uid).set({
       email: email,
       name: name,
-      profile_img: imageURL,
+      profile_img: '',
       settings: {
         startSidebarMinimized: false
       },
@@ -146,12 +146,45 @@ function useProvideAuth() {
       if (err) {
         console.error("Failed to write user data")
       } else {
-        console.log("User data saved successfully!")
+        console.log("User data saved successfully! Onboarding in progress")
       }
     })
   }
 
-  const updateProfile = ({ name, img }) => {
+  const stopOnboarding = async () => {
+    await db.ref(refs.users + user.uid).child("onboarding").set(false)
+      .catch(console.error)
+  }
+
+  const addPharmacy = async ({ pharmacyName, location, password }) => {
+    console.log("addPharmacy() called")
+    if (!user) {
+      throw new Error("401: Must be logged in to add pharmacy")
+    }
+
+    if (!pharmacyName || !location || !password) {
+      throw new Error("404: Pharmacy needs all required fields to be added")
+    }
+
+    const ref = db.ref(refs.users + user.uid)
+
+
+    const newPharmacyRef = ref.child("pharmacies").push()
+    const key = await newPharmacyRef.set({ pharmacyName, location, password })
+      .then(() => {
+        return newPharmacyRef.key
+      })
+      .catch(error => {
+        console.error(error.message)
+        throw new Error("Failed to set data")
+      })
+
+    return key
+  }
+
+  const updateProfile = async ({ name, img }) => {
+    await sleep(1000)
+    console.log(img)
     if (!user) {
       console.log("Signed up, but no user found")
       return
@@ -162,16 +195,16 @@ function useProvideAuth() {
     img && (update['photoURL'] = img)
     console.log(update)
 
-    const test = user.updateProfile(update)
+    await user.updateProfile(update)
       .then(console.log("Updated profile"))
       .catch(console.error)
-    console.log(test)
 
     const rtbUpdates = {}
     name && (rtbUpdates[refs.users + user.uid + '/name'] = name)
     img && (rtbUpdates[refs.users + user.uid + '/profile_img'] = img)
-    db.ref().update(rtbUpdates)
-    // rtd.postUserData(user.uid, name, user.email, img)
+    await db.ref().update(rtbUpdates)
+      .then(console.log("Updated user data"))
+      .catch(console.error)
   }
 
   const sendPasswordResetEmail = (email) => {
@@ -222,12 +255,17 @@ function useProvideAuth() {
     signIn,
     signUp,
     signOut,
+    stopOnboarding,
+    addPharmacy,
     updateProfile,
     sendPasswordResetEmail,
     confirmPasswordReset,
   }
 }
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const refs = {
   users: 'users/',
+  userPharmacies: '/pharmacies/'
 }

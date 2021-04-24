@@ -22,7 +22,9 @@ const NavBar = ({scrollTop}) => {
       <Navbar.Collapse className="">
         <Nav className="mr-auto">
           <Nav.Link as={Link} to={routes.search} className="pr-4">Search Now</Nav.Link>
-          <Nav.Link as={Link} to={'/about'}>About Us</Nav.Link>
+          <Nav.Link as={Link} to={'/about'} className="pr-4">About Us</Nav.Link>
+          
+          <Nav.Link as={Link} to={'/dev'} className="text-warning">Test Cloud Functions</Nav.Link>
         </Nav>
         <hr className="my-2 d-md-none" />
         <NavProfile />

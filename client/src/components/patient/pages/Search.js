@@ -82,22 +82,4 @@ const SearchPage = () => {
   </Container>
 }
 
-const getAll = async () => {
-  
-  // // const drugs = ;
-  // const query = new Parse.Query(Parse.Object.extend("DrugsRef_Test"));
-  
-  // // Set constraints on query
-  // query.equalTo('BrandName', 'Kynmobi');                            // Find all with requested brandName
-  // query.select('BrandName', 'GenericName', 'Dosage', 'DosageForm') // Select only these columns 
-
-  // // Find all that match constraints
-  // const results = await query.find();
-
-
-  // return results.map(d => d.attributes)
-  // // return results.map(d => d.get('BrandName'))
-  // // Retrieve the object by id
-}
-
 export default SearchPage

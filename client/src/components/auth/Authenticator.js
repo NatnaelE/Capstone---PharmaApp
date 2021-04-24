@@ -20,8 +20,8 @@ const Authenticator = ({ from }) => {
       <Route path={routes.auth.base}
         render={() => <Redirect to={{pathname: auth.signin}} />} />
     </Switch>
-  // ) : auth.onboarding? (
-  //     <Redirect to={{pathname: routes.onboarding.base, state: {from: from}}} />
+  ) : auth.onboarding? (
+      <Redirect to={{pathname: routes.onboarding.base, state: {from: from}}} />
   ) : <Redirect to={{pathname: routes.pharmacist.dashboard, state: {from: from}}} />
 }
 

@@ -15,6 +15,7 @@ const routes = {
     base: onboardingBase,
     stage1: onboardingBase + '/s1',
     stage2: onboardingBase + '/s2',
+    done: onboardingBase + '/done',
   },
   pharmacist: {
     base: pharmacistBase,

@@ -57,13 +57,14 @@ const MobileSidebarBtn = ({ openSidebar }) => {
 const ProfilePicture = ({ src, width, height, border }) => {
   const style = {
     width: width ? width : '35px',
-    height: src ? '' : width ? width : '35px',
+    height: width ? width : '35px',
     borderRadius: '50%',
-    boxShadow: border ? '0 0 20px 5px gray' : ''
+    boxShadow: border ? '0 0 20px 5px gray' : '',
+    backgroundImage: `url(${src})`
   }
 
   return src ? (
-    <img src={src} style={style} alt="profile" />
+    <div style={style} className="bg-img-cover" alt="profile" />
   ) : <AccountCircle style={style}/>
 }
 

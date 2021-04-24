@@ -8,11 +8,14 @@ import LandingPage from './pages/Landing'
 import SearchPage from './pages/Search'
 import AboutPage from './pages/AboutUs'
 
+import TestCloud from '../../dev/TestCloud'
+
 
 const PatientApp = () => {
   return <div id="patientApp">
     <NavTop />
     <Switch>
+      <Route path="/dev" component={TestCloud} />
       <Route path="/auth" render={props => <Authenticator from={props.location} />} />
       <Route path="/pharmacists" component={PharmacistsPage} />
       <Route path="/search" component={SearchPage} />

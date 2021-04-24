@@ -1,8 +1,11 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Container, Row, Col, Button } from 'react-bootstrap'
-import bgImg from '../../../assets/pharmacy-bg.jpg'
+import { routes } from '../../../constants/routes'
 
 const LandingPage = () => {
+  let history = useHistory()
+  
   return <>
     <Container fluid className="vh-100 pt-5 px-3 bg-beige bg-img-cover d-flex flex-column" style={{}}>
       <Row className="my-5 justify-content-center">
@@ -20,9 +23,9 @@ const LandingPage = () => {
           </div>
           <div className="d-flex">
           <Button variant="ultra-blue" size="lg"
-            className="mr-3 px-5">Get Started</Button>
+            className="mr-3 px-5" onClick={() => history.push(routes.search)}>Get Started</Button>
           <Button variant="golden" size="lg"
-            className="px-5">Learn More</Button>
+            className="px-5"><a href="/#learn-more"></a>Learn More</Button>
 
           </div>
           
@@ -36,7 +39,7 @@ const LandingPage = () => {
         {/* More content */}
       </Row>
       <Row className="my-5 justify-content-center">
-        <h5 className="fw-500">Pharmacy or Pharmacist?<a href="/pharmacists">{' '}Join our platform today</a></h5>
+        <h5 className="fw-500">Pharmacy or Pharmacist? {' '}<a href={routes.pharmacistLanding}>Join our platform today</a></h5>
       </Row>
     </Container>
     <Container fluid className="vh-100 pt-5 px-3 bg-sky-blue">
