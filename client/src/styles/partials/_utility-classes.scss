@@ -30,3 +30,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.scroll-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+  border-radius: 50px;
+}
