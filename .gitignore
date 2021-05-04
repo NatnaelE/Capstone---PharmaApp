@@ -1,3 +1,7 @@
+# Dev dependencies
+scripts/test
+scripts/deploy/postgres
+
 # VSCode
 .vscode
 

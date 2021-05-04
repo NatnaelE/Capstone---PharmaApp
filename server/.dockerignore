@@ -1,0 +1,10 @@
+# Deploy scripts
+scripts
+/scripts
+./scripts
+
+# Dependencies
+.git
+.gitignore
+node_modules
+npm-debug.log
