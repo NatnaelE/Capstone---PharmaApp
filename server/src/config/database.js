@@ -15,7 +15,7 @@ const db = new Sequelize(
     host: process.env.PGHOST,
     dialect: 'postgres',
     retry: {
-        match: [Sequelize.ConnectionRefusedError]
+        match: [/SequelizeConnectionRefusedError/]
     }
 });
 

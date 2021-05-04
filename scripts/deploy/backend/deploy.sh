@@ -22,17 +22,19 @@ echo -e "> Working directory: " $(pwd) "\n"
 
 # Copy src
 sftp -r \
-  ec2-user@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:server \
+  ec2-user@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:../public/backend \
   <<< "put ./src"
 
 # Copy Docker and npm files
-sftp ec2-user@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:server << EOF
+sftp ec2-user@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:../public/backend << EOF
   put .dockerignore
   put Dockerfile
   put docker-compose.yml
   put package-lock.json
   put package.json
 EOF
+
+ssh -tt ec2-user@ec2-54-212-108-32.us-west-2.compute.amazonaws.com sudo chgrp -R wheel ../public/backend
 
 echo -e "\n> Server files copied!\n"
 
