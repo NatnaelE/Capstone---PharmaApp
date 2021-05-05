@@ -1,0 +1,1 @@
+scp -r ~/dev/Capstone---PharmaApp/server ec2-user@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:~/

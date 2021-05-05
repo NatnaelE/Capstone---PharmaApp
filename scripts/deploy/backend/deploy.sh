@@ -33,3 +33,4 @@ cd $DEPLOY_DIR
 ssh -tt $EC2_USERNAME@ec2-54-212-108-32.us-west-2.compute.amazonaws.com < deploy-commands.sh
 
 echo -e "\n> Deploy complete!"
+echo -e "\n> Server is live at:\t[http://54.212.108.32]"
