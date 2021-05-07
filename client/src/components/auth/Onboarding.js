@@ -31,7 +31,7 @@ const Onboarding = () => {
   // </OnboardingContainer>
 }
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+// const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const Stage1 = () => {
   let auth = useAuth()

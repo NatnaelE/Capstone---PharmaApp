@@ -1,0 +1,101 @@
+@mixin scroll-container {
+  .scroll-wrapper {
+    overflow: hidden;
+  }
+
+  .scroll-container {
+    overflow: scroll;
+    overflow-y: overlay;
+    overflow-x: hidden;
+  }
+  
+  .scroll-wrapper, .scroll-container {
+    width: 100%;
+  }
+
+  // .scroll-container::-webkit-scrollbar {
+  //   // width: 8px;
+  // }
+  
+  .scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: map-get($theme-colors, "jet");
+    border-radius: 10px;
+  }
+}
+
+@mixin landing-text-styles {
+  h1, h2 {
+    font-weight: 700;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    padding: 0;
+    font-family: 'Manrope';
+  }
+
+  .p-2 {
+    font-family: 'Manrope';
+    font-size: 1.25rem !important;
+  }
+}
+
+@mixin image-styles {
+  .mission-img {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: map-get($theme-colors, "alabaster") 2.5px solid;
+  }
+
+  .img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .img-container div {
+    width: 90%;
+    height: 90%;
+  }
+
+  .img-bg-rect {
+    position: absolute;
+    z-index: 1;
+    background-color: map-get($theme-colors, "green");
+  }
+
+  .img-wrapper {
+    position: absolute;
+    z-index: 11;
+    top: 10%;
+    left: 10%;
+    // box-shadow: 0 0 10px 2px gray;
+    // box-shadow: 5px 5px 5px gray;
+  }
+
+  .img-bg-rect, .img-wrapper {
+    border-radius: 8px;
+    // box-shadow: 5px 5px 5px gray;
+    // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+}
+
+#landing {
+  @include scroll-container;
+  @include landing-text-styles;
+  @include image-styles;
+}

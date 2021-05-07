@@ -12,11 +12,11 @@ import TestCloud from '../../dev/TestCloud'
 
 
 const PatientApp = () => {
-  return <div id="patientApp">
+  return <div id="">
     <NavTop />
     <Switch>
       <Route path="/dev" component={TestCloud} />
-      <Route path="/auth" render={props => <Authenticator from={props.location} />} />
+      <Route path="/auth" render={props => <Authenticator from={props.location} id="patientApp" />} />
       <Route path="/pharmacists" component={PharmacistsPage} />
       <Route path="/search" component={SearchPage} />
       <Route path="/about" component={AboutPage} />

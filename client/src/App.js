@@ -4,7 +4,7 @@ import { AuthProvider, useAuth } from './hooks/useAuth'
 
 import PharmacistApp from './components/pharmacist/PharmacistApp'
 import PatientApp from './components/patient/PatientApp'
-import Onboarding from './components/onboarding/Onboarding'
+import Onboarding from './components/auth/Onboarding'
 
 import { routes } from './constants/routes'
 

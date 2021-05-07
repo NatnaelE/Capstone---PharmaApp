@@ -38,6 +38,7 @@ const Settings = () => {
 
 const ProfileContent = () => {
   let auth = useAuth()
+  // eslint-disable-next-line
   const [state, setState] = useState(auth.userData ?
     {
       name: auth.userData.name,

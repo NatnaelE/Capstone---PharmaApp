@@ -2,12 +2,17 @@
 @import './overrides/bootstrap';
 @import './overrides/react-pro-sidebar';
 
+// Import mixins
+@import './mixins/mixins';
+
 // Import partials
 @import './partials/fonts';
 @import './partials/utility-classes';
 @import './partials/nav';
 @import './partials/auth';
 @import './partials/dashboard';
+@import './partials/landing';
+@import './partials/search';
 @import './partials/loading';
 
 // Import react pro sidebar

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 // import { usePosition } from '../../../hooks/usePosition'
 
 import { useForm, useController, Controller } from 'react-hook-form'
-import { Row, Col, Form, Button } from 'react-bootstrap'
+import { Row, Col, Form, Button, InputGroup } from 'react-bootstrap'
 import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead'
 import usePlacesAutocomplete, {
   getGeocode,
@@ -32,12 +32,35 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
     errors ? setValidated(false) : setValidated(true)
   }, [errors, setValidated])
 
+  const props = {}
+  props.renderInput = ({
+    inputRef,
+    referenceElementRef,
+    ...inputProps
+  }) => (
+    <InputGroup size="lg" id="custom-search">
+      <InputGroup.Prepend>
+        <InputGroup.Text className="px-3 py-0">
+          <LocalPharmacy className="fs-1-1" />
+        </InputGroup.Text>
+      </InputGroup.Prepend>
+      <Form.Control
+        {...inputProps}
+        ref={(node) => {
+          inputRef(node);
+          referenceElementRef(node);
+        }}
+      />
+      
+    </InputGroup>
+  )
+
   return (
     
     <Form validated={validated} onSubmit={handleSubmit(onSubmit)}>
-      <Form.Row>
-      <Form.Group as={Col} xs={useLocation && 9}>
-      <InputLabel icon={LocalPharmacy} label={useLocation ? 'Find Medications' : 'Search Medications'} />
+      <Form.Row className="align-items-center">
+      <Form.Group as={Col} xs={useLocation && 8}>
+      {/* <InputLabel icon={LocalPharmacy} label={useLocation ? 'Find Medications' : 'Search Medications'} /> */}
       <div onClick={() => clearErrors("medication")}>
         <Controller
           name="medication"
@@ -49,6 +72,7 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
             formState,
           }) => (
             <Typeahead
+              {...props}
               {...fields}
               {...fieldState}
               isInvalid={invalid}
@@ -61,6 +85,7 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
             />
           )}  
         />
+        <Form.Control.Feedback>Where will I appear?</Form.Control.Feedback>
         <Form.Control.Feedback type="invalid" tooltip 
           className={`${errors.medication ? "d-block" : "d-none"} ml-3`}>
           Please enter at least 1 medication
@@ -70,7 +95,7 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
       
       {useLocation && (
         <Form.Group as={Col}>
-          <InputLabel icon={LocationOn} label="Near" />
+          {/* <InputLabel icon={LocationOn} label="Near" /> */}
           <div onClick={() => clearErrors("location")}>
             {/* <Controller
               name="location"
@@ -103,7 +128,9 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
         </Form.Group>
       )}
       <Form.Group as={Col} xs={"auto"} className="d-flex align-items-end">
-        <Button type="submit" variant="green" size="lg"><Search /></Button>
+        <Button type="submit" variant="green" size="lg" className="p-3" 
+          id="search-button"
+        style={{borderRadius: '45px'}}><Search /></Button>
       </Form.Group>
       </Form.Row>
     </Form>
@@ -141,6 +168,31 @@ const LocationInput = ({ name, control, id }) => {
     // debounce: 300,
   });
 
+  // Custom Render Styling Props
+  const renderProps = {
+    renderInput: ({
+      inputRef,
+      referenceElementRef,
+      ...inputProps
+    }) => (
+      <InputGroup size="lg" id="custom-search">
+        <InputGroup.Prepend>
+          <InputGroup.Text className="px-3 py-0">
+            <LocationOn className="fs-1-1" />
+          </InputGroup.Text>
+        </InputGroup.Prepend>
+        <Form.Control
+          {...inputProps}
+          ref={(node) => {
+            inputRef(node);
+            referenceElementRef(node);
+          }}
+        />
+        
+      </InputGroup>
+    )
+  }
+
   // console.log(value)
   // console.log(status)
   // console.log(loading)
@@ -177,6 +229,7 @@ const LocationInput = ({ name, control, id }) => {
     <AsyncTypeahead
       {...inputProps}
       {...fieldState}
+      {...renderProps}
 
       filterBy={() => true}
       labelKey="location"

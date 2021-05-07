@@ -10,6 +10,39 @@
   }
 }
 
+@mixin navbar-buttons {
+  button {
+    @include box-shadow-light;
+  }
+
+  .dropdown button {
+    box-shadow: none;
+  }
+
+  .dropdown-item.active, .dropdown-item:hover {
+    color: map-get($theme-colors, "darker");
+    background-color: transparent;
+  }
+}
+
+@mixin navbar-dropdown {
+  .dropdown-menu {
+    @include box-shadow-light;
+    
+    top: 150%;
+    border: none;
+  }
+}
+
+@mixin navbar-transitions {
+  -webkit-transition: background-color 100ms linear;
+  -ms-transition: background-color 100ms linear;
+  transition: background-color 100ms linear;
+}
+
 #client-navbar {
-  @include nav-brand
+  @include nav-brand;
+  @include navbar-buttons;
+  @include navbar-transitions;
+  @include navbar-dropdown;
 }

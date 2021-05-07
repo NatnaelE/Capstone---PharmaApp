@@ -5,16 +5,50 @@ $theme-colors: (
   "sky-blue": #00a9d3,
   "deep-blue": #18353d,
   "ultra-blue": #446DF6,
+  "yale-blue": #084887,
+  "med-turquoise": #4ECDC4,
+  "electric-blue": #00E8FC,
   "golden": #ffb700,
   "red": #f83c3c,
+  "bittersweet": #FF6B6B,
   "dark-red": #9a031e,
   "dark-sienna": #4C212A,
   "dim-gray": #716969,
   "jet": #323031,
+  "black-coral": #545863,
   "beige": #f5f0e8,
   "green": #00CBA6,
   "mellow-yellow": #FFC478,
+  "rajah": #F9AB55,
+  "ghost-white": #F7F5FB,
+  "dark-orange": #F58A07,
+  "timberwolf": #DADDD8,
+  "alabaster": #ECEBE4,
+  "cultured": #ECEBE4,
+  "sky-blue-trans": #00a9d398,
+  "golden-trans": #ffb7003b,
+  "darker": #16181b
 );
+
+$spacers: (
+  "2r": 2rem,
+  "4r": 4rem,
+  "5r": 5rem,
+  "6r": 6rem,
+  "7r": 7rem,
+  "8r": 8rem,
+  "9r": 9rem,
+  "10r": 10rem,
+);
+
+// $grid-breakpoints: (
+//   xs: 0,
+//   sm: 576px,
+//   md: 768px,
+//   lg: 992px,
+//   xl: 1200px,
+//   xxl: 1400px
+// );
 
 $grid-columns: 16;
 $grid-row-columns: 8;

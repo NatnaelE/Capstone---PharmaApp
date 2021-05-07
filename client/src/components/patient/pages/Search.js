@@ -30,10 +30,10 @@ const SearchPage = () => {
   }
 
   return <Container fluid
-            className="vh-100 pt-5 px-3 d-flex flex-column abstract-bg bg-img-cover">
+            className="vh-100 pt-5 px-3 d-flex flex-column bg-img-cover">
     <Row className="flex-grow-1 justify-content-center">
       <Col lg={12} xl={10} className="d-flex align-items-center">
-        <Jumbotron className="pt-3 pb-4 flex-grow-1">
+        <Jumbotron className="pt-3 pb-4 flex-grow-1 bg-trans">
           <h2 className="mt-3 text-center fw-700">Medication Search</h2>
           <hr className="mb-4" />
           <SearchController

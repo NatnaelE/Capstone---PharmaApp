@@ -177,10 +177,10 @@ const SignForm = ({ fieldData, submit, submitText }) => {
 
 const AuthContainer = ({ children }) => {
   return (
-    <Container fluid className="vh-100 pt-5 px-3 abstract-bg bg-img-cover">
-      <Row className="h-100 pt-3 justify-content-center ">
-        <Col xs={16} md={10} lg={8} xl={6} >
-          <Jumbotron className="m-0 pt-4 pt-sm-5 pb-3">
+    <Container fluid className="vh-100 pt-5 px-3 bg-pills-yellow">
+      <Row className="h-100 pt-3 justify-content-center align-items-center">
+        <Col xs={16} md={10} lg={8} xl={7} xxl={12} className="d-flex justify-content-center">
+          <Jumbotron className="w-100 m-0 pt-4 pt-sm-5 pb-3" style={{maxWidth: '500px'}}>
             {children}
           </Jumbotron>
         </Col>

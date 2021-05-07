@@ -1,0 +1,20 @@
+@mixin box-shadow-strong {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@mixin box-shadow-light {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+}
+
+@mixin bg-img-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  // background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@mixin bg-position-center {
+  background-postition: center;
+}

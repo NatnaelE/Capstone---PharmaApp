@@ -1,6 +1,13 @@
 // Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+// Font families
+.ff-montserrat {
+  font-family: 'Montserrat';
+}
+
 
 // Font Weights
 .fw-100 {
@@ -8,7 +15,7 @@
 }
 
 .fw-200 {
-  font-weight: 200;
+  font-weight: 200 !important;
 }
 
 .fw-300 {
@@ -34,11 +41,15 @@
 // Sizes
 
 .fs-075 {
-  font-size: 0.75rem;
+  font-size: 0.75rem !important;
 }
 
 .fs-08 {
   font-size: 0.8rem !important;
+}
+
+.fs-085 {
+  font-size: 0.85rem !important;
 }
 
 .fs-09 {
@@ -49,8 +60,35 @@
   font-size: 1rem !important;
 }
 
+.fs-1-1 {
+  font-size: 1.1rem !important;
+}
+
+.fs-1-125 {
+  font-size: 1.125rem !important;
+}
+
+.fs-1-15 {
+  font-size: 1.15rem !important;
+}
+
+.fs-1-2 {
+  font-size: 1.2rem !important;
+}
+
+.fs-1-25 {
+  font-size: 1.25rem !important;
+}
+
+
+
+//// LEGACY CLASSNAMES ////
 .fs-11 {
   font-size: 1.1rem !important;
+}
+
+.fs-12 {
+  font-size: 1.2rem !important;
 }
 
 .fs-125 {

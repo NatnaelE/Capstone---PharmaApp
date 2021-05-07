@@ -1,0 +1,35 @@
+@mixin search-input {
+  // Input group styles
+  border: 1px solid #ced4da;
+  border-radius: 45px;
+  
+  background-color: map-get($theme-colors, "white");
+
+  // Child styles
+  // .form {
+  //   border-left: 0;
+  //   padding-left: 0;
+  // }
+  .form-control {
+    padding-left: 0;
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+  }
+
+  .input-group-text, .form-control {
+    border: none;
+    background-color: transparent;
+  }
+
+}
+
+#custom-search {
+  @include search-input;
+  @include box-shadow-strong;
+}
+
+#search-button {
+  @include box-shadow-strong;
+}
