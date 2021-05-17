@@ -134,7 +134,6 @@ const OnboardForm = ({ fieldData, submit, submitText }) => {
           name={d.key}
           type={d.type}
           placeholder={d.placeholder}
-
         />
         { errors[d.key] && (
           <Form.Text className="text-warning">{errors[d.key].message}</Form.Text>

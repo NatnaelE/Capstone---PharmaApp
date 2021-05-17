@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 import { routes } from '../constants/routes'
+import medData from '../constants/medData.json'
 
 // Search context
 const searchContext = createContext();
@@ -58,7 +59,7 @@ function useProvideSearch() {
   // Called on param change
   const loadResults = async () => {
     
-    // Get lat and lng
+    // Fetch lat and lng
     const { lat, lng } = await getGeocode({ address: params.loc })
     .then(results => getLatLng(results[0]))
     .then(resp => {
@@ -67,14 +68,21 @@ function useProvideSearch() {
     })
     .catch(console.error)
 
-    // Fetch data with lat / lng
-    // const results = 
-    await sleep(1000)
+    // Fetch results
 
-    // Set results
-    setResults({ header: "Test", subtitle: "A subtitle", count: 10, lat, lng })
+    //// EMULATE ENDPOINT CALL ////
+      await sleep(1000)
+      const medType = medData.filter(d => {
+        return d["BrandName"] === params.med
+      })[0]
+      const resp = { count: randInt(5, 21), medType, loc: { lat, lng } }
+      resp['rows'] = [...Array(resp.count).keys()].map(d => ({ id: d, quant: randInt(50, 1000) }))
+    //// END EMULATE ////
+
+    setResults(resp)  // set results
+    setLoading(false) // stop loading
+
     console.log("Results loaded!")
-    setLoading(false)
   }
 
   // Calls loadResults on param change
@@ -92,4 +100,10 @@ function useProvideSearch() {
   return { loading, setLoading, params, results, search, loadParamsFromQuery }
 }
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+// Local Emulation Helpers
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const randInt = (min, max) => {
+  const r = Math.random()*(max-min) + min
+  return Math.floor(r)
+}
