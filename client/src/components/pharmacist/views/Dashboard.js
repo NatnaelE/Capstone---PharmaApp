@@ -4,17 +4,18 @@ import {  DashboardHeader,
   DashboardRow as DashRow,
   DashboardCol as DashCol,
   WidgetContainer,
-  TestWidget  } from '../components/DashUtils'
+} from '../components/DashUtils'
+import DefaultWidget from '../widgets/DefaultWidget'
 
 const DashboardContent = ({ openSidebar }) => {
   return <Container fluid className="h-100 d-flex flex-column px-0">
     <DashboardHeader
       title="Dashboard" subtitle="Your pharmacy at a glance" />
     <DashRow>
-      <DashCol hasNeighbor xs={16} md={10}>
+      <DashCol hasNeighbor xs={16} md={9}>
         <DashRow>
           <DashCol>
-            <WidgetContainer widget={<TestWidget />} title={'Quick Actions'} />
+            <WidgetContainer widget={<DefaultWidget />} title={'Quick Actions'} />
           </DashCol>
         </DashRow>
         <DashRow>
@@ -23,13 +24,13 @@ const DashboardContent = ({ openSidebar }) => {
           </DashCol>
         </DashRow>
       </DashCol>
-      <DashCol xs={16} md={6} >
+      <DashCol xs={16} md={7} >
         <WidgetContainer title={'Recent Orders'} />
       </DashCol>
     </DashRow>
 
     <DashRow>
-      <DashCol hasNeighbor xs={16} sm={8}>
+      <DashCol hasNeighbor xs={16} sm={8} md={9}>
         <WidgetContainer title={'Order Trends'} />
       </DashCol>
       <DashCol>

@@ -1,34 +1,78 @@
 // Bootstrap variable overrides
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
 
-$theme-colors: (
-  "trans": rgba(0, 0, 0, 0),
-  "sky-blue": #00a9d3,
-  "deep-blue": #18353d,
-  "ultra-blue": #446DF6,
-  "yale-blue": #084887,
-  "med-turquoise": #4ECDC4,
-  "electric-blue": #00E8FC,
-  "golden": #ffb700,
-  "red": #f83c3c,
-  "bittersweet": #FF6B6B,
-  "dark-red": #9a031e,
-  "dark-sienna": #4C212A,
-  "dim-gray": #716969,
-  "jet": #323031,
-  "black-coral": #545863,
-  "beige": #f5f0e8,
-  "green": #00CBA6,
-  "mellow-yellow": #FFC478,
-  "rajah": #F9AB55,
-  "ghost-white": #F7F5FB,
-  "dark-orange": #F58A07,
-  "timberwolf": #DADDD8,
-  "alabaster": #ECEBE4,
-  "cultured": #ECEBE4,
-  "sky-blue-trans": #00a9d398,
-  "golden-trans": #ffb7003b,
-  "darker": #16181b
+
+$monochromes: (
+  "gray-100": $gray-100,
+  "gray-200": $gray-200,
+  "gray-300": $gray-300,
+  "gray-400": $gray-400,
+  "gray-500": $gray-500,
+  "gray-600": $gray-600,
+  "gray-700": $gray-700,
+  "gray-800": $gray-800,
+  "gray-900": $gray-900,
+  "black": $black
 );
+
+$theme-colors: map-merge(
+  (
+    "trans": rgba(0, 0, 0, 0),
+    // "sky-blue": #00a9d3,
+    "sky-blue": #13a3ea,
+    "sky-blue-lt": #58bff1,
+    "sky-blue-dark": #1193d2,
+    // "medical-blue": #13a3ea,
+    "ultra-blue": #13a3ea,
+    "max-blue": #41BBD9,
+    "deep-blue": #18353d,
+    // "ultra-blue": #446DF6,
+    "yale-blue": #084887,
+    "med-turquoise": #4ECDC4,
+    "electric-blue": #00E8FC,
+    "golden": #ffb700,
+    "red": #f83c3c,
+    "bittersweet": #FF6B6B,
+    "dark-red": #9a031e,
+    "dark-sienna": #4C212A,
+    "dim-gray": #716969,
+    "jet": #323031,
+    "black-coral": #545863,
+    "beige": #f5f0e8,
+    // "green": #00CBA6,
+    "mellow-yellow": #ffecb7,
+    "max-yellow": #ffeaa7,
+    "rajah": #F9AB55,
+    "ghost-white": #F7F5FB,
+    "dark-orange": #F58A07,
+    "timberwolf": #DADDD8,
+    "alabaster": #ECEBE4,
+    "cultured": #ECEBE4,
+    "sky-blue-trans": #00a9d398,
+    "golden-trans": #ffb7003b,
+    "darker": #16181b,
+    "firebrick": #BB0A21,
+    "light-gray": #D3D4D9, 
+    // "caribbean-green": #06D6A0,
+    "green": #06D6A0,
+    "paradise-pink": #EF476F,
+    "silver": #E0E1DD,
+    "dark-brown": #583101,
+    "darkest-brown": #323031,
+  ),
+  $monochromes
+);
+
+
 
 $spacers: (
   "2r": 2rem,
@@ -61,8 +105,10 @@ $navbar-brand-font-size: 1.25rem;
 $nav-link-padding-y: 0rem;
 $navbar-nav-link-padding-x: .75rem;
 $navbar-toggler-font-size: 1rem;
-$navbar-dark-color: rgba(#fff, .95);
-$navbar-dark-hover-color: rgba(#fff, .75);
+$navbar-dark-color: map-get($theme-colors, "ghost-white");
+$navbar-dark-hover-color: rgba(#fff, .85);
+$navbar-light-color: rgba(rgb(32, 32, 32), 1);
+$navbar-light-hover-color: rgba(rgb(32, 32, 32), .85);
 
 $input-btn-padding-y: .2rem;
 $input-btn-padding-x: .7rem;

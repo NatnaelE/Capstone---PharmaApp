@@ -156,7 +156,7 @@ const SignForm = ({ fieldData, submit, submitText }) => {
     return <Form.Row key={d.key}>
       <Form.Group as={Col} >
         {/* <Form.Label>{d.label}</Form.Label> */}
-        <Form.Control size="lg" name={d.key} value={values[d.key]} type={d.type} placeholder={d.label} onChange={e => {
+        <Form.Control size="lg" className="bg-ghost-white" name={d.key} value={values[d.key]} type={d.type} placeholder={d.label} onChange={e => {
           setState({ ...values, [e.target.name]: e.target.value })
         }} />
         <Form.Text className="text-muted">{d.subText}</Form.Text>
@@ -177,7 +177,7 @@ const SignForm = ({ fieldData, submit, submitText }) => {
 
 const AuthContainer = ({ children }) => {
   return (
-    <Container fluid className="vh-100 pt-5 px-3 bg-pills-yellow">
+    <Container fluid className="vh-100 pt-5 px-3 bg-leaves" id="auth">
       <Row className="h-100 pt-3 justify-content-center align-items-center">
         <Col xs={16} md={10} lg={8} xl={7} xxl={12} className="d-flex justify-content-center">
           <Jumbotron className="w-100 m-0 pt-4 pt-sm-5 pb-3" style={{maxWidth: '500px'}}>

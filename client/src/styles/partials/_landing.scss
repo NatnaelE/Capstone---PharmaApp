@@ -17,14 +17,14 @@
   //   // width: 8px;
   // }
   
-  .scroll-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  // .scroll-container::-webkit-scrollbar-track {
+  //   background: transparent;
+  // }
   
-  .scroll-container::-webkit-scrollbar-thumb {
-    background: map-get($theme-colors, "jet");
-    border-radius: 10px;
-  }
+  // .scroll-container::-webkit-scrollbar-thumb {
+  //   background: map-get($theme-colors, "jet");
+  //   border-radius: 10px;
+  // }
 }
 
 @mixin landing-text-styles {

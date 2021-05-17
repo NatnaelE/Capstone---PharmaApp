@@ -20,7 +20,7 @@ const NavBar = () => {
 
   return (
     <Navbar id="client-navbar"
-      bg={`${scrollTop ? "trans" : "deep-blue"}`}
+      bg={`${scrollTop ? "trans" : "ultra-blue"}`}
       variant={`${scrollTop ? "light" : "dark"}`}
       expand="md"
       fixed="top"
@@ -28,7 +28,7 @@ const NavBar = () => {
       <Navbar.Brand as={Link} to={routes.landing}
         className="align-self-baseline fw-200 mr-0 mr-md-3 mr-lg-4 mr-xl-5">
         <img alt="logo" src={logo} width="30" height="30" className="d-inline-block align-top mr-3" />
-        PharmaApp
+        World's Pharmacy
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse className="">
@@ -88,13 +88,13 @@ const NavProfile = ({ scrollTop }) => {
   ) : (
     <Nav as={Row} className="fw-200 justify-content-end mx-0">
       <Nav.Link as={Link} to={routes.pharmacistLanding} className="pl-0 pr-3 align-self-center">
-        <span className="fw-500 text-warning">Host Your Pharmacy</span>
+        <span className={`fw-500 ${scrollTop ? "text-golden" : "text-alabaster"}`}>Host Your Pharmacy</span>
       </Nav.Link>
       <Nav.Link as={Link} to={routes.auth.signin} className="px-2">
         <Button variant="green" size="sm">Log in</Button>
       </Nav.Link>
       <Nav.Link as={Link} to={routes.auth.signup + '?view=pharmacist'} className="px-0">
-        <Button variant="sky-blue" size="sm">Sign up</Button>
+        <Button variant={`${scrollTop ? "sky-blue" : "golden"}`} size="sm">Sign up</Button>
       </Nav.Link>
     </Nav>
   )

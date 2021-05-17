@@ -18,3 +18,9 @@
 #signTabs {
   @include custom-tab-colors;
 }
+
+#auth {
+  .jumbotron {
+    @include box-shadow-strong;
+  }
+}

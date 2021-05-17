@@ -1,5 +1,10 @@
+//// Box Shadows ////
 @mixin box-shadow-strong {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.box-shadow-strong {
+  @include box-shadow-strong;
 }
 
 @mixin box-shadow-light {
@@ -15,6 +20,78 @@
   background-repeat: no-repeat;
 }
 
+@mixin bg-img-size($size) {
+  -webkit-background-size: $size;
+  -moz-background-size: $size;
+  -o-background-size: $size;
+  // background-position: center;
+  background-size: $size;
+  background-repeat: no-repeat;
+}
+
 @mixin bg-position-center {
   background-postition: center;
+}
+
+//// Scrollbar ////
+@mixin custom-scroll {
+  $width: 15px;
+  $bg-track: map-get($theme-colors, "gray-200");
+  $bg-pieces: map-get($theme-colors, "sky-blue-lt");
+
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $bg-track;
+    opacity: 0.1;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $bg-pieces;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    // border-radius: 9999px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: map-get($theme-colors, "sky-blue");
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+
+  // Buttons
+  &::-webkit-scrollbar-button:single-button {
+    background-color: $bg-pieces;
+    
+    display: block;
+    margin-top: 5px;
+    border-style: solid;
+    border-color: $bg-track;
+    // border-width: 2px;
+    // border-radius: 50%;
+    height: $width;
+    width: $width;
+    // padding: 10px;
+  }
+
+  // Up
+  &::-webkit-scrollbar-button:single-button:vertical:decrement {
+    // height: ($width - 20px);
+    // width:  ($width - 20px);
+    @include bg-img-size(250%);
+    background-position: center 55%;
+    background-image: url(../../assets/icons/menu-up.svg);
+    background-color: $bg-track;
+    // background-blend-mode: lighten;
+  }
+
+  // Down
+  &::-webkit-scrollbar-button:single-button:vertical:increment {
+    @include bg-img-size(250%);
+    background-position: center 45%;
+    background-image: url(../../assets/icons/menu-down.svg);
+    background-color: $bg-track;
+  }
 }

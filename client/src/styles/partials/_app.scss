@@ -1,0 +1,6 @@
+// Contains general styles for the entire app
+
+body, #root {
+  // Custom scrollbar styles
+  @include custom-scroll;
+}

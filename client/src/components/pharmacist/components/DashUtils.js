@@ -2,6 +2,7 @@ import React from 'react'
 // import { useAuth } from '../../hooks/useAuth'
 import { Jumbotron, Row, Col, Button } from 'react-bootstrap'
 import { Menu, AccountCircle } from '@material-ui/icons'
+import DefaultWidget from '../widgets/DefaultWidget'
 
 const DashboardHeader = ({ title, subtitle, openSidebar }) => {
   // let auth = useAuth()
@@ -31,20 +32,13 @@ const DashboardCol = ({children, css, hasNeighbor, ...rest}) => {
 
 const WidgetContainer = ({children, css, widget, title, ...rest}) => {
   const style = { marginBottom: '15px' }
-  widget = widget ? widget : <TestWidget />
+  widget = widget ? widget : <DefaultWidget title={title} />
   return (
     <Jumbotron {...rest} style={style}
       className={"h-100 p-3 d-flex flex-column " + (css ? css : '')}>
-        <h3>{title ? title : "Title"}</h3>
         {widget}
     </Jumbotron>
   )
-}
-
-const TestWidget = () => {
-  return <Row className="h-100">
-    <Col>Content</Col>
-  </Row>
 }
 
 const MobileSidebarBtn = ({ openSidebar }) => {
@@ -74,6 +68,5 @@ export {
   DashboardRow,
   DashboardCol,
   WidgetContainer,
-  TestWidget,
   ProfilePicture
 }

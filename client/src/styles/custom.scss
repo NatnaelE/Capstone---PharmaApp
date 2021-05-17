@@ -8,12 +8,17 @@
 // Import partials
 @import './partials/fonts';
 @import './partials/utility-classes';
+@import './partials/app';
+
+// Import component partials
+@import './partials/loading';
+@import './partials/landing';
+@import './partials/search';
 @import './partials/nav';
 @import './partials/auth';
 @import './partials/dashboard';
-@import './partials/landing';
-@import './partials/search';
-@import './partials/loading';
+
+
 
 // Import react pro sidebar
 @import '~react-pro-sidebar/dist/scss/styles.scss';

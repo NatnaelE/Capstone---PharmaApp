@@ -1,31 +1,70 @@
 import React, { useState, useEffect } from 'react'
+import { useSearch } from '../../../hooks/useSearch'
 // import { usePosition } from '../../../hooks/usePosition'
 
-import { useForm, useController, Controller } from 'react-hook-form'
+import { useForm, useController, useWatch, Controller } from 'react-hook-form'
 import { Row, Col, Form, Button, InputGroup } from 'react-bootstrap'
 import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead'
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-
+import usePlacesAutocomplete from "use-places-autocomplete";
 
 // Icons
-import { LocalPharmacy, LocationOn, Search, SentimentDissatisfiedSharp } from '@material-ui/icons';
+import { LocalPharmacy, LocationOn, Search } from '@material-ui/icons';
 
-const SearchController = ({ options, id, useLocation, cloudFunction }) => {
-  const { handleSubmit, control, formState: { errors }, clearErrors } = useForm();
-  console.log(errors)
-  // let position = usePosition()
-  // console.log(position.latitude)
-  // console.log(position.longitude)
+// Autocomplete data
+import medData from '../../../constants/medData.json'
+// import { initialize } from 'parse'
+
+
+const SearchController = ({ id, labelKey, useLocation, cloudFunction }) => {
+  const { loading, params } = useSearch()
+  // console.log(params)
+  // console.log(params ? params.med : 'no value found')
+  const { handleSubmit, control, formState: { errors, isSubmitting }, clearErrors, setValue, getValues } = useForm({
+    defaultValues: {
+      medication: [],
+      location: []
+    }
+  });
+
+  // console.log(getValues())
+  // console.log(getValues())
+
   const [validated, setValidated] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const onSubmit = (data, e) => {
+  // Load local med data
+  useEffect(() => {
+    // setValue("medication", [params.med])
+    const parsed = medData.map(d => {
+      return d[labelKey]
+    }).filter(d => {
+      return typeof d === "string"
+    })
+
+    setOptions([...new Set(parsed)])
+  }, [])
+
+  useEffect(() => {
+    if (params) {
+      setValue("medication", [params.med])
+      useLocation && setValue("location", [{location: params.loc}])
+    } else {
+      setValue("medication", [])
+      useLocation && setValue("location", [])
+    }
+  }, [params])
+
+  const onSubmit = async (data, e) => {
     e.preventDefault()
-    console.log("submit fired")
+    console.log("SearchInput: submit fired")
     console.log(data)
-    cloudFunction(data)
+
+    if (useLocation) {
+      const { medication, location } = data
+      await cloudFunction(medication, location[0].location)
+    } else {
+      // call other search function
+    }
   }
 
   useEffect(() => {
@@ -59,11 +98,12 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
     
     <Form validated={validated} onSubmit={handleSubmit(onSubmit)}>
       <Form.Row className="align-items-center">
-      <Form.Group as={Col} xs={useLocation && 8}>
+      <Form.Group as={Col} xs={useLocation && 8} className="mb-0">
       {/* <InputLabel icon={LocalPharmacy} label={useLocation ? 'Find Medications' : 'Search Medications'} /> */}
       <div onClick={() => clearErrors("medication")}>
         <Controller
           name="medication"
+          // defaultValue={params ? [params.med] : []}
           rules={{ required: true }}
           control={control}
           render={({
@@ -75,17 +115,22 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
               {...props}
               {...fields}
               {...fieldState}
-              isInvalid={invalid}
+
               id={(id ? id : 'X') + '-medication-search'}
+              labelKey={"label"}
+              options={options}
+              // defaultSelected={params ? [params.med] : []}
+              selected={getValues("medication")}
+
+              isInvalid={invalid}
+              disabled={isSubmitting || loading}
               clearButton
               allowNew
-              options={options}
               placeholder="What medication do you need?"
               size="lg"
             />
           )}  
         />
-        <Form.Control.Feedback>Where will I appear?</Form.Control.Feedback>
         <Form.Control.Feedback type="invalid" tooltip 
           className={`${errors.medication ? "d-block" : "d-none"} ml-3`}>
           Please enter at least 1 medication
@@ -94,31 +139,16 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
       </Form.Group>
       
       {useLocation && (
-        <Form.Group as={Col}>
+        <Form.Group as={Col} className="mb-0">
           {/* <InputLabel icon={LocationOn} label="Near" /> */}
           <div onClick={() => clearErrors("location")}>
-            {/* <Controller
-              name="location"
-              rules={{ required: true }}
-              control={control}
-              render={({
-                field: { ref, ...fields },
-                fieldState: { invalid, ...fieldState },
-                formState,
-              }) => (
-                <Typeahead
-                  {...fields}
-                  {...fieldState}
-                  isInvalid={invalid}
-                  id={(id ? id : 'X') + '-location-search'}
-                  options={locationOptions}
-                  clearButton
-                  placeholder="Where should we look?"
-                  size="lg"
-                />
-              )}  
-            /> */}
-            <LocationInput name="location" control={control} id={id} />
+            <LocationInput 
+              name="location" 
+              control={control} 
+              id={id} 
+              initial={params ? [{location: params.loc}] : []}
+              getValues={getValues}
+              searchLoading={loading} />
 
             <Form.Control.Feedback type="invalid" tooltip 
               className={`${errors.location ? "d-block" : "d-none"} ml-3`}>
@@ -127,10 +157,12 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
           </div>
         </Form.Group>
       )}
-      <Form.Group as={Col} xs={"auto"} className="d-flex align-items-end">
-        <Button type="submit" variant="green" size="lg" className="p-3" 
-          id="search-button"
-        style={{borderRadius: '45px'}}><Search /></Button>
+      <Form.Group as={Col} xs={"auto"} className="mb-0 d-flex align-items-end">
+        <Button variant="green" size="lg" id="search-button"
+          className="p-3"
+          style={{borderRadius: '45px'}}
+          type="submit"
+          disabled={isSubmitting || loading}><Search /></Button>
       </Form.Group>
       </Form.Row>
     </Form>
@@ -138,23 +170,20 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
   )
 }
 
-const LocationInput = ({ name, control, id }) => {
-  const [showLoading, setShowLoading] = useState(false)
-  const [options, setOptions] = useState([])
-
-  // React Hook Form props
+const LocationInput = ({ name, control, id, searchLoading, initial, getValues, ...rest }) => {
+  // RHF controller props
   const {
-    field: { ref, ...inputProps },
+    field: { ref, onChange, ...inputProps },
     fieldState: { invalid, ...fieldState },
-    formState: { touchedFields, dirtyFields }
+    formState: { isSubmitting }
   } = useController({
     name,
     control,
     rules: { required: true },
-    defaultValue: "",
+    defaultValue: [],
   });
 
-  // Use Places Autocomplete props
+  // usePlacesAutocomplete hook and props
   const {
     ready,
     value,
@@ -163,12 +192,22 @@ const LocationInput = ({ name, control, id }) => {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      types: ["(region)"]
+      types: ["geocode"]
     },
     // debounce: 300,
   });
 
-  // Custom Render Styling Props
+  const [isLoading, setIsLoading] = useState(loading)
+  const [options, setOptions] = useState([])
+  // const [selected, setSelected] = useState(initial)
+
+  const selected = useWatch({
+    control,
+    name: 'location',
+    // defaultValue: 'default' // default value before the render
+  });
+
+  // Custom render styling props for Typeahead
   const renderProps = {
     renderInput: ({
       inputRef,
@@ -193,53 +232,69 @@ const LocationInput = ({ name, control, id }) => {
     )
   }
 
-  // console.log(value)
-  // console.log(status)
-  // console.log(loading)
-  // console.log(data)
-  // console.log(options)
-
+  // Pass typed value from Typeahead to usePlacesAutocomplete
   const handleSearch = query => {
     console.log(query)
-    setShowLoading(true)
+    setIsLoading(true)
     setValue(query)
   }
-
-  useEffect(() => {
-    console.log(data)
-    console.log(status)
-  }, [status, data])
-
-  useEffect(() => {
-    console.log(value)
-    if (!value) {
+  
+  // Handle Typeahead selection
+  const handleChange = val => {
+    console.log(val)
+    onChange(val)  // call RHF onChange
+    if (val.length === 0) {
       console.log("suggestions cleared")
       clearSuggestions()
     }
-  }, [value, clearSuggestions])
+  }
 
+  // useEffect(() => {
+  //   // console.log(initial)
+  //   // initial && setValue(initial)
+  //   console.log(selected)
+  //   console.log(initial)
+  // }, [])
+
+  // Syncs UPA responses with Typeahead options
   useEffect(() => {
     setOptions(data.map(d => ({
       location: d.description
     })))
-    setShowLoading(false)
+    setIsLoading(false)
   }, [data, setOptions])
+
+  // // Log usePlacesAutocomplete status
+  // useEffect(() => {
+  //   console.log("usePlacesAutocomplete Reponse Status: " + status)
+  // }, [status])
+
+  // Log usePlacesAutocomplete value
+  useEffect(() => {
+    console.log(value)
+  }, [value])
 
   return (
     <AsyncTypeahead
       {...inputProps}
       {...fieldState}
       {...renderProps}
-
+      {...rest}
+      
       filterBy={() => true}
       labelKey="location"
-      minLength={3}
-      isLoading={showLoading}
+      minLength={1}
+      disabled={!ready}
+      isLoading={isLoading}
       onSearch={handleSearch}
+      onChange={handleChange}
       options={options}
+      selected={selected}
+      
 
-      isInvalid={invalid}
       id={(id ? id : 'X') + '-location-search'}
+      isInvalid={invalid}
+      disabled={isSubmitting || searchLoading}
       clearButton
       placeholder="Where should we look?"
       size="lg"
@@ -247,18 +302,18 @@ const LocationInput = ({ name, control, id }) => {
   )
 } 
 
-const InputLabel = ({ icon: Icon, label }) => {
-  return <Row className="mb-1 align-items-center">
-    <Col xs={"auto"} className="pr-0 d-flex">
-      <Icon className="fs-11" />
-    </Col>
-    <Col className="pl-1">
-      <Form.Label className="mb-0 text-uppercase fs-08 fw-600">{label}</Form.Label>
-    </Col>
-  </Row>
-}
+// const InputLabel = ({ icon: Icon, label }) => {
+//   return <Row className="mb-1 align-items-center">
+//     <Col xs={"auto"} className="pr-0 d-flex">
+//       <Icon className="fs-11" />
+//     </Col>
+//     <Col className="pl-1">
+//       <Form.Label className="mb-0 text-uppercase fs-08 fw-600">{label}</Form.Label>
+//     </Col>
+//   </Row>
+// }
 
-const locationOptions = [
-  'My Current Location'
-]
+// const locationOptions = [
+//   'My Current Location'
+// ]
 export { SearchController }

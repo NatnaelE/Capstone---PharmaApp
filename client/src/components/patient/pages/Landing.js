@@ -1,10 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useSearch } from '../../../hooks/useSearch'
 import { Container, Row, Col, Button, Alert } from 'react-bootstrap'
 import { routes } from '../../../constants/routes'
 
 import { SearchController } from '../components/SearchInput'
-import brandNames from '../../../constants/brandNames.json'
 
 import pillImg from '../../../assets/pill_cropped.png';
 import computerImg from '../../../assets/computer_cropped.png';
@@ -60,31 +60,33 @@ const LandingContainer = ({ children, css, height, ...rest }) => {
 
 const LandingScreen = () => {
   let history = useHistory()
+  let { search } = useSearch()
   
   return (
     <LandingContainer css="bg-holistic bg-gradient-light bg-img-cover pt-5r pb-0 d-flex flex-column">
       <Row className="mt-3 mb-5 justify-content-center">
-        <Col xs="auto" lg={10} xl={8}>
-          <h5 className="text-center mb-3 fw-600">Search Pharmacies Nearby</h5>
+        <Col xs="auto" lg={12} xl={10}>
+          <h5 className="text-center mb-3 fw-300">Search Nearby Pharmacies</h5>
           <SearchController
-            options={brandNames.sort()}
             id={"patient"}
+            labelKey={"BrandName"}
             useLocation
-            cloudFunction={console.log('search')} />
+            cloudFunction={search} />
         </Col>
       </Row>
 
       <Row className="mt-3 mb-3 justify-content-around flex-grow-1">
-        <Col md={9} className="d-flex flex-column justify-content-around pr-10r">
+        <Col md={9}
+          className="d-flex flex-column justify-content-around pr-10r text-darkest-brown">
           <div>
-          <h1 className="mb-0">Medication you need,</h1>
-          <h1 className="text-nowrap">from pharmacies near you</h1>
-          <p>Connecting you quickly to the medications you need. Find prescriptions and medication from nearby pharmacies.</p>
+          <h1 className="mb-0 fw-800 display-4 text-nowrap">Medication you need,</h1>
+          <h1 className="text-nowrap fw-800 display-4">from pharmacies near you</h1>
+          <p className="fw-200" style={{fontSize:'1.75rem'}}>Connecting you quickly to essential medications. Find prescriptions and medication from nearby pharmacies.</p>
           </div>
           <div className="d-flex">
-          <Button variant="sky-blue" size="lg"
+          <Button variant="green" size="lg"
             className="mr-3 px-5" onClick={() => history.push(routes.search)}>Get Started</Button>
-          <Button variant="golden" size="lg"
+          <Button variant="sky-blue" size="lg"
             className="px-5" onClick={() => history.push("#learn-more")}>Learn More</Button>
           </div>
         </Col>
@@ -189,8 +191,7 @@ const pharmacistValues = {
   header: "Local Pharmacist?",
   subtitle: "Here's what we can do for you",
   text1: `Realtime inventory tracking on our online database. Quickly store and see inventory levels of your medication, all on our website!`,
-  text2: `Update and view medication inventory 
-  Get alerts on low inventory
+  text2: `Update and view medication inventory. Get alerts on low inventory.
   Share medication levels with customers`,
 }
 

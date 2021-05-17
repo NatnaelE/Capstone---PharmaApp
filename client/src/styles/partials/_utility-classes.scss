@@ -64,11 +64,27 @@
   background-position: 20%;
 }
 
+.bg-gradient-light-80 {
+  background-color: rgba(255, 255, 255, 0.8);
+  // background-color: rgba(0, 0, 0, 0.025);
+  // background-blend-mode: screen;
+  background-blend-mode: overlay;
+  background-position: 20%;
+}
+
+.bg-gradient-dark {
+  background-color: rgba(255, 255, 255, 0.75);
+  // background-color: rgba(0, 0, 0, 0.025);
+  // background-blend-mode: screen;
+  background-blend-mode: overlay;
+  background-position: 20%;
+}
+
 .abstract-bg {
   background-image: url(../../assets/abstract-bg-01.jpg);
 }
 
-.abstract-bg-2 {
+.bg-abstract-2, .abstract-bg-2 {
   background-image: url(../../assets/abstract-bg-02.jpg);
 }
 
@@ -86,10 +102,34 @@
   background-image:url(../../assets/bg/pills-white.jpg)
 }
 
-.bg-pills-yellow {
+.bg-leaves {
   @include bg-img-cover;
   background-image:url(../../assets/bg/leaves.jpg);
   background-position: left 40%;
+}
+
+.bg-pills-yellow {
+  @include bg-img-cover;
+  background-image:url(../../assets/bg/pills-yellow.jpg);
+  background-position: left 40%;
+}
+
+.bg-white-cup {
+  @include bg-img-cover;
+  background-image:url(../../assets/bg/white-cup.jpg);
+  background-position: left center;
+}
+
+.bg-pills-pattern {
+  @include bg-img-cover;
+  background-image:url(../../assets/bg/pills-pattern.jpg);
+  background-position: left center;
+}
+
+.bg-pills-01 {
+  @include bg-img-cover;
+  background-image:url(../../assets/bg/pills-01.jpg);
+  background-position: center;
 }
 
 .pill-clipart-bg {
@@ -110,3 +150,45 @@
   text-overflow: ellipsis;
 }
 
+// Spinner
+.spinner {
+  width: 80px;
+  height: 80px;
+
+  position: relative;
+  margin: auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: map-get($theme-colors, "ultra-blue");
+  opacity: 0.65;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  -webkit-animation: sk-bounce 1.0s infinite ease-in-out;
+  animation: sk-bounce 1.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
