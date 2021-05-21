@@ -10,6 +10,9 @@ echo -e "\n> Deploying Backend ..."
 cd $SERVER_DIR
 echo -e "> Working out of: " $(pwd) "\n"
 
+# Remove old files
+# ssh -tt $EC2_USERNAME@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:../public/backend rm -r src
+
 # Copy src
 sftp -r $EC2_USERNAME@ec2-54-212-108-32.us-west-2.compute.amazonaws.com:../public/backend \
   <<< "put ./src"

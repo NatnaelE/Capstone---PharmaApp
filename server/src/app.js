@@ -1,9 +1,9 @@
-const models = require('.');
+const models = require('./index');
 
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 
-const db = require('./src/config/database');
+const db = require('./config/database');
 db.authenticate()
     .then(() => console.log("\n> Database connected... \n"))
     .catch(err => console.log("Error: " + err))
@@ -13,7 +13,7 @@ const app = express();
 
 app.get('/', (req, res) => res.send('INDEX'));
 
-app.use('/medicines', require('./src/routes/medicines'));
+app.use('/medicines', require('./routes/medicines'));
 
 //// Local Testing Only ////
 // const PORT = process.env.PORT || 5000;

@@ -7,4 +7,4 @@ export PROJECT_DIR=/Users/Yousef/Desktop/Capstone---PharmaApp
 export EC2_USERNAME="yousef"
 
 # Run main script
-$PROJECT_DIR/scripts/deploy/backend/deploy.sh
+sh $PROJECT_DIR/scripts/deploy/backend/deploy.sh

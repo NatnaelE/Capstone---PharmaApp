@@ -8,9 +8,8 @@ const Op = Sequelize.Op;
 
 router.get('/', (req, res) => 
     Medicine.findAll()
-        .then( meds => res.render('meds', {
-            meds
-        }))
+        .then(meds => res.json(meds))
+        .catch(console.error)
 );
 
 
