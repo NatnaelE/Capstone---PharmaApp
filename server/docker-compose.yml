@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  api_server:
+    container_name: sqlize
+    image: sequelize-api:0.1.0
+    build:
+      context: .
+    # networks:
+    #   - api
+    ports:
+      - "80:80"
+    environment:
+      - EXTERNAL_PORT=80
+      - PGUSER=postgres
+      - PGPASSWORD=12345
+      - PGDATABASE=postgres_db
+      - PGHOST=pg_db # NAME OF THE SERVICE
+    depends_on:
+      - pg_db
+  pg_db:
+    container_name: postgres
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=postgres_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata: {}
+# networks:
+#   api:
+#     name: sequelize_api
+  
+# Connect to existing network
+# networks:
+#   default:
+#     external:
+#       name: sequelize_api
+    

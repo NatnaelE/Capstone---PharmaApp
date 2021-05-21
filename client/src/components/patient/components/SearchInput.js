@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 // import { usePosition } from '../../../hooks/usePosition'
 
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, useController, Controller } from 'react-hook-form'
 import { Row, Col, Form, Button } from 'react-bootstrap'
-import { Typeahead } from 'react-bootstrap-typeahead'
+import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead'
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+
 
 // Icons
-import { LocalPharmacy, LocationOn, Search } from '@material-ui/icons';
+import { LocalPharmacy, LocationOn, Search, SentimentDissatisfiedSharp } from '@material-ui/icons';
 
 const SearchController = ({ options, id, useLocation, cloudFunction }) => {
   const { handleSubmit, control, formState: { errors }, clearErrors } = useForm();
@@ -67,7 +72,7 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
         <Form.Group as={Col}>
           <InputLabel icon={LocationOn} label="Near" />
           <div onClick={() => clearErrors("location")}>
-            <Controller
+            {/* <Controller
               name="location"
               rules={{ required: true }}
               control={control}
@@ -87,7 +92,9 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
                   size="lg"
                 />
               )}  
-            />
+            /> */}
+            <LocationInput name="location" control={control} id={id} />
+
             <Form.Control.Feedback type="invalid" tooltip 
               className={`${errors.location ? "d-block" : "d-none"} ml-3`}>
               Please enter a location
@@ -104,6 +111,88 @@ const SearchController = ({ options, id, useLocation, cloudFunction }) => {
   )
 }
 
+const LocationInput = ({ name, control, id }) => {
+  const [showLoading, setShowLoading] = useState(false)
+  const [options, setOptions] = useState([])
+
+  // React Hook Form props
+  const {
+    field: { ref, ...inputProps },
+    fieldState: { invalid, ...fieldState },
+    formState: { touchedFields, dirtyFields }
+  } = useController({
+    name,
+    control,
+    rules: { required: true },
+    defaultValue: "",
+  });
+
+  // Use Places Autocomplete props
+  const {
+    ready,
+    value,
+    suggestions: { loading, status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      types: ["(region)"]
+    },
+    // debounce: 300,
+  });
+
+  // console.log(value)
+  // console.log(status)
+  // console.log(loading)
+  // console.log(data)
+  // console.log(options)
+
+  const handleSearch = query => {
+    console.log(query)
+    setShowLoading(true)
+    setValue(query)
+  }
+
+  useEffect(() => {
+    console.log(data)
+    console.log(status)
+  }, [status, data])
+
+  useEffect(() => {
+    console.log(value)
+    if (!value) {
+      console.log("suggestions cleared")
+      clearSuggestions()
+    }
+  }, [value, clearSuggestions])
+
+  useEffect(() => {
+    setOptions(data.map(d => ({
+      location: d.description
+    })))
+    setShowLoading(false)
+  }, [data, setOptions])
+
+  return (
+    <AsyncTypeahead
+      {...inputProps}
+      {...fieldState}
+
+      filterBy={() => true}
+      labelKey="location"
+      minLength={3}
+      isLoading={showLoading}
+      onSearch={handleSearch}
+      options={options}
+
+      isInvalid={invalid}
+      id={(id ? id : 'X') + '-location-search'}
+      clearButton
+      placeholder="Where should we look?"
+      size="lg"
+    />
+  )
+} 
 
 const InputLabel = ({ icon: Icon, label }) => {
   return <Row className="mb-1 align-items-center">

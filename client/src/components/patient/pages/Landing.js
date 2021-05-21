@@ -7,7 +7,7 @@ const LandingPage = () => {
   let history = useHistory()
   
   return <>
-    <Container fluid className="vh-100 pt-5 px-3 bg-beige bg-img-cover d-flex flex-column" style={{}}>
+    <Container fluid className="vh-100 pt-5 px-3 bg-beige bg-img-cover d-flex flex-column scrollContainer" style={{}}>
       <Row className="my-5 justify-content-center">
         <Col xs="auto">
           <Button variant="green" size="lg">Search Now</Button>
