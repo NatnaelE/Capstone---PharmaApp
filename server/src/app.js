@@ -1,7 +1,5 @@
-const models = require('./models/index');
-
+const models = require('./index');
 const express = require('express');
-const path = require('path');
 
 const db = require('./config/database');
 db.authenticate()
@@ -12,6 +10,8 @@ db.authenticate()
 const app = express();
 
 app.get('/', (req, res) => res.send('INDEX'));
+
+app.use('/medicines', require('./routes/medicines'));
 
 //// Local Testing Only ////
 // const PORT = process.env.PORT || 5000;

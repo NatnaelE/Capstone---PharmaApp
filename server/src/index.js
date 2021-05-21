@@ -1,14 +1,14 @@
 //import Sequelize from 'sequelize';
 const Sequelize = require('sequelize');
-const db = require('../config/database');
-const Country = require('./Country');
-const Medicine = require('./Medicine');
-const Pharmacist = require('./Pharmacist');
-const Pharamacy = require('./Pharmacy');
-const PharmacyType = require('./PharmacyType');
-const User = require('./User');
-const UserType = require('./UserType');
-const MedType = require('./MedType');
+const db = require('./config/database');
+const Country = require('./models/Country');
+const Medicine = require('./models/Medicine');
+const Pharmacist = require('./models/Pharmacist');
+const Pharamacy = require('./models/Pharmacy');
+const PharmacyType = require('./models/PharmacyType');
+const User = require('./models/User');
+const UserType = require('./models/UserType');
+const MedType = require('./models/MedType');
 
 
 const models = {
