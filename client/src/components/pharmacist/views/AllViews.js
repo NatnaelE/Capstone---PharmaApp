@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import {  DashboardHeader } from '../components/DashUtils'
 import DashboardContent from './Dashboard'
+import PharmacyContent from './Pharmacy'
 import SettingsContent from './Settings'
 
 // Main dashboard for pharmacists
@@ -24,10 +25,7 @@ const OrdersView = () => {
 }
 
 const PharmacyView = () => {
-  return <Container fluid className="h-100 d-flex flex-column px-0">
-    <DashboardHeader title="My Pharmacy"
-      subtitle="View or update your pharmacy's information" />
-  </Container>
+  return <PharmacyContent />
 }
 
 const SettingsView = () => {

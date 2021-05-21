@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import { Container, Jumbotron, Row, Col, Form, Button, Tab, Nav, Alert } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
+// import { useForm } from 'react-hook-form'
+
+import { useForm, useController, useWatch } from 'react-hook-form'
+import { AsyncTypeahead } from 'react-bootstrap-typeahead'
+import usePlacesAutocomplete from 'use-places-autocomplete'
+
 
 import { routes } from '../../constants/routes'
 
@@ -39,7 +44,10 @@ const Stage1 = () => {
   const [key, setKey] = useState("patient")
 
   const submit = async (data) => {
-    // await sleep(2000)
+    // Flatten location
+    data.location = data.location[0].location
+
+    // Add data to firebase
     await auth.addPharmacy(data)
       .then(resp => {
         console.log(resp)
@@ -116,7 +124,7 @@ const OnboardDone = () => {
 }
 
 const OnboardForm = ({ fieldData, submit, submitText }) => {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data, e) => {
     e.preventDefault()
@@ -125,16 +133,26 @@ const OnboardForm = ({ fieldData, submit, submitText }) => {
   }
 
   const inputs = fieldData.map(d => {
-    return <Form.Row key={d.key}>
+
+    return (
+      <Form.Row key={d.key}>
       <Form.Group as={Col} >
         <Form.Label>{d.label}</Form.Label>
-        <Form.Control
-          {...register(d.key, { ...d.rules })}
-          size="lg"
-          name={d.key}
-          type={d.type}
-          placeholder={d.placeholder}
-        />
+        { d.key === 'location' ? 
+          <LocationInput 
+            name={d.key}
+            control={control}
+            rules={{...d.rules}}
+            placeholder={d.placeholder}
+          /> : 
+          <Form.Control
+            {...register(d.key, { ...d.rules })}
+            size="lg"
+            name={d.key}
+            type={d.type}
+            placeholder={d.placeholder}
+          />
+        }
         { errors[d.key] && (
           <Form.Text className="text-warning">{errors[d.key].message}</Form.Text>
         )}
@@ -144,6 +162,7 @@ const OnboardForm = ({ fieldData, submit, submitText }) => {
         }
       </Form.Group>
     </Form.Row>
+  )
   })
 
   return <Form onSubmit={handleSubmit(onSubmit)}>
@@ -156,6 +175,90 @@ const OnboardForm = ({ fieldData, submit, submitText }) => {
       </Form.Group>
     </Form.Row>
   </Form>
+}
+
+const LocationInput = ({ name, control, rules, placeholder }) => {
+  // RHF controller props
+  const {
+    field: { ref, onChange, ...inputProps },
+    fieldState: { invalid, ...fieldState },
+    formState: { isSubmitting }
+  } = useController({
+    name,
+    control,
+    rules,
+    defaultValue: [],
+  });
+
+  // Watch RHF field state
+  const selected = useWatch({ name, control });
+
+  // usePlacesAutocomplete hook and props
+  const {
+    ready,
+    value,
+    suggestions: { loading, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      types: ["address"]
+    },
+    // debounce: 300,
+  });
+
+  // Control async loading and option state
+  const [isLoading, setIsLoading] = useState(loading)
+  const [options, setOptions] = useState([])
+
+  // Syncs UPA responses with Typeahead options
+  useEffect(() => {
+    setOptions(data.map(d => ({
+      location: d.description
+    })))
+    setIsLoading(false)
+  }, [data, setOptions])
+
+  // Pass typed value from Typeahead to usePlacesAutocomplete
+  const handleSearch = query => {
+    console.log(query)
+    setIsLoading(true)  // show loading state
+    setValue(query)     // set UPA query
+  }
+  
+  // Handle Typeahead selection
+  const handleChange = val => {
+    console.log(val)
+    onChange(val)  // call RHF onChange
+    if (val.length === 0) {
+      console.log("suggestions cleared")
+      clearSuggestions()
+    }
+  }
+
+  return (
+    <AsyncTypeahead
+      {...inputProps}
+      {...fieldState}
+      // {...renderProps}
+      
+      filterBy={() => true}
+      labelKey={name}
+      minLength={1}
+      disabled={!ready}
+      isLoading={isLoading}
+      onSearch={handleSearch}
+      onChange={handleChange}
+      options={options}
+      selected={selected}
+      
+      id={"pharmacy-address-input"}
+      isInvalid={invalid}
+      clearButton
+      placeholder={placeholder}
+      size="lg"
+    />
+  )
 }
 
 const OnboardingContainer = ({ children }) => {

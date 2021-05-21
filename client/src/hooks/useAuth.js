@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect, useContext, createContext } from 'react'
+import React, { useState, useCallback, useEffect, useContext, createContext } from 'react';
+import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from "firebase/app";
@@ -59,21 +60,9 @@ function useProvideAuth() {
     setUser(user)
     user ? console.log(user) : console.log("No user signed in")
 
-    
     if (user) {
       // Handle RTD subscriptions
       let ref = db.ref(refs.users + user.uid)
-
-      // // Load data one time for state
-      // ref.get().then((snapshot) => {
-      //   if (snapshot.exists()) {
-      //     console.log(snapshot.val());
-      //   } else {
-      //     console.log("No data available");
-      //   }
-      // }).catch((error) => {
-      //   console.error(error);
-      // });
 
       // Subscribe to user data
       ref.on('value', snapshot => {
@@ -165,10 +154,21 @@ function useProvideAuth() {
     if (!pharmacyName || !location || !password) {
       throw new Error("404: Pharmacy needs all required fields to be added")
     }
+    
+    // Fetch lat and lng
+    const { lat, lng } = await getGeocode({ address: location })
+    .then(results => getLatLng(results[0]))
+    .then(resp => {
+      const { lat, lng } = resp
+      return { lat, lng }
+    })
+    .catch(console.error)
+    
+    // Format location
+    location = { address: location, lat, lng }
 
+    // Firebase RTD
     const ref = db.ref(refs.users + user.uid)
-
-
     const newPharmacyRef = ref.child("pharmacies").push()
     const key = await newPharmacyRef.set({ pharmacyName, location, password })
       .then(() => {
@@ -179,6 +179,9 @@ function useProvideAuth() {
         throw new Error("Failed to set data")
       })
 
+    ref.update({ primary_pharmacy: key })  // save key
+
+    // Save key
     return key
   }
 
@@ -231,7 +234,7 @@ function useProvideAuth() {
   // ... latest auth object.
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      console.log('auth state fire')
+      console.log('auth state changed')
       setLoading(true)
       handleUserChange(user)
       setLoading(false)
