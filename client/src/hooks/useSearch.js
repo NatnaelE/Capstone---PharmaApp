@@ -76,7 +76,7 @@ function useProvideSearch() {
         return d["BrandName"] === params.med
       })[0]
       const resp = { count: randInt(5, 21), medType, loc: { lat, lng } }
-      resp['rows'] = [...Array(resp.count).keys()].map(d => ({ id: d, quant: randInt(50, 1000) }))
+      resp['rows'] = [...Array(resp.count).keys()].map(d => ({ id: d, dist: randInt(10, 40), quant: randInt(50, 1000) }))
     //// END EMULATE ////
 
     setResults(resp)  // set results

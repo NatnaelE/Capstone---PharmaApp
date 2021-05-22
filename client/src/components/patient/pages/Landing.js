@@ -29,10 +29,13 @@ const Landing = () => {
       subtitle={pharmacistValues.subtitle}
       text1={pharmacistValues.text1}
       text2={pharmacistValues.text2}
-      href={routes.pharmacistLanding}
+      href={routes.auth.signup + "/?view=pharmacist"}
       css={"bg-light"} />
     <MissionScreen css="bg-alabaster" />
-    <LandingContainer css="bg-jet"></LandingContainer>
+    <LandingContainer
+      css="bg-jet"
+      height={40}
+    ></LandingContainer>
   </Container>
 }
 

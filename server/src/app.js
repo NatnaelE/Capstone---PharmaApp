@@ -8,10 +8,11 @@ db.authenticate()
  
 
 const app = express();
+app.use(express.json());
 
 app.get('/', (req, res) => res.send('INDEX'));
-
 app.use('/medicines', require('./routes/medicines'));
+app.use('/medtypes', require('./routes/medtypes'));
 
 //// Local Testing Only ////
 // const PORT = process.env.PORT || 5000;

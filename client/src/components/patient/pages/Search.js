@@ -160,7 +160,7 @@ const ResultsView = ({ clearSearch }) => {
                   <ResultRow key={d.id}
                     id={d.id}
                     name={"Local Pharmacueticals"}
-                    dist={"25.1 miles"}
+                    dist={d.dist + " miles"}
                     brandName={results.medType.BrandName}
                     dosage={results.medType.Dosage}
                     quant={d.quant}

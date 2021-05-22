@@ -55,6 +55,8 @@ const SearchController = ({ id, labelKey, useLocation, cloudFunction }) => {
       await cloudFunction(medication, location[0].location)
     } else {
       // call other search function
+      const { medication } = data
+      await cloudFunction(data)
     }
   }
 

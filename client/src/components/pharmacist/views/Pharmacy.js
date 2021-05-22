@@ -18,7 +18,7 @@ const PharmacyContent = () => {
           subtitle="View and edit your pharmacy's details" />
         <DashRow css="mt-lg-3 mb-lg-5">
           <DashCol>
-            <WidgetContainer widget={<PharmacyHeader />} title="Preferences" />
+            <WidgetContainer widget={<PharmacyHeader />} title="Preferences" css="h-auto" />
           </DashCol>
         </DashRow>
       </DashCol>
@@ -45,6 +45,8 @@ const PharmacyHeader = () => {
     )
     console.log(pharmacy)
   }, [userData])
+
+  //"https://images-na.ssl-images-amazon.com/images/I/61ZQxQke2rL._SL1203_.jpg"
 
   return pharmacy ? (
     <Row className="flex-column">

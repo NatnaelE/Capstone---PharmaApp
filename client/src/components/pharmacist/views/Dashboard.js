@@ -5,7 +5,9 @@ import {  DashboardHeader,
   DashboardCol as DashCol,
   WidgetContainer,
 } from '../components/DashUtils'
-import DefaultWidget from '../widgets/DefaultWidget'
+import { OrderNext } from '../widgets/Widgets'
+import QuickActions from '../widgets/QuickActions'
+import AtAGlance from '../widgets/AtAGlance'
 
 const DashboardContent = ({ openSidebar }) => {
   return <Container fluid className="h-100 d-flex flex-column px-0">
@@ -15,12 +17,12 @@ const DashboardContent = ({ openSidebar }) => {
       <DashCol hasNeighbor xs={16} md={9}>
         <DashRow>
           <DashCol>
-            <WidgetContainer widget={<DefaultWidget />} title={'Quick Actions'} />
+            <WidgetContainer widget={<QuickActions title={'Quick Actions'} />} />
           </DashCol>
         </DashRow>
         <DashRow>
           <DashCol>
-            <WidgetContainer title={'At a Glance'} />
+            <WidgetContainer widget={<AtAGlance title={'At A Glance'} />} />
           </DashCol>
         </DashRow>
       </DashCol>
@@ -34,7 +36,7 @@ const DashboardContent = ({ openSidebar }) => {
         <WidgetContainer title={'Order Trends'} />
       </DashCol>
       <DashCol>
-        <WidgetContainer title={'Order Next'} css="bg-red text-light" />
+        <WidgetContainer widget={<OrderNext title="Order Next" />} css="bg-red text-light" />
       </DashCol>
     </DashRow>
   </Container>
